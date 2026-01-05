@@ -1,0 +1,85 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+// 1. Bảng Người dùng (Nhân viên & Quản lý)
+model User {
+  id        Int      @id @default(autoincrement()) // Khóa chính tự tăng (1, 2, 3...)
+  email     String   @unique
+  password  String // Lưu mật khẩu đã mã hóa (Hash), không lưu text thường!
+  name      String?
+  role      Role     @default(STAFF) // Phân quyền: STAFF hoặc ADMIN
+  createdAt DateTime @default(now())
+
+  // Quan hệ: Một nhân viên có thể tạo nhiều đơn hàng
+  orders Order[]
+}
+
+// 2. Bảng Danh mục (Cafe, Trà, Bánh...)
+model Category {
+  id       Int       @id @default(autoincrement())
+  name     String
+  products Product[] // Một danh mục chứa nhiều sản phẩm
+}
+
+// 3. Bảng Sản phẩm
+model Product {
+  id          Int     @id @default(autoincrement())
+  name        String
+  description String?
+  price       Decimal @db.Decimal(10, 2) // Tiền nên dùng Decimal để chính xác
+  imageUrl    String?
+  isAvailable Boolean @default(true) // Còn hàng hay hết
+
+  // Khóa ngoại: Liên kết với bảng Category
+  categoryId Int
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  orderItems OrderItem[]
+}
+
+// 4. Bảng Đơn hàng (Hóa đơn tổng)
+model Order {
+  id          Int         @id @default(autoincrement())
+  createdAt   DateTime    @default(now())
+  totalAmount Decimal     @db.Decimal(10, 2) // Tổng tiền của cả đơn
+  status      OrderStatus @default(PENDING) // Trạng thái đơn
+
+  // Khóa ngoại: Ai là người tạo đơn này?
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  // Quan hệ: Một đơn hàng có nhiều món bên trong
+  items OrderItem[]
+}
+
+// 5. Bảng Chi tiết đơn hàng (Bảng trung gian quan trọng!)
+// Giải thích: Tại sao cần bảng này?
+// Vì một Đơn hàng có nhiều Món, và một Món có thể nằm trong nhiều Đơn hàng.
+model OrderItem {
+  id       Int     @id @default(autoincrement())
+  quantity Int // Số lượng (ví dụ: 2 ly)
+  price    Decimal @db.Decimal(10, 2) // Giá tại thời điểm bán (Quan trọng!)
+
+  orderId Int
+  order   Order @relation(fields: [orderId], references: [id])
+
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
+}
+
+// Định nghĩa các hằng số (Enums) cho clean code
+enum Role {
+  ADMIN
+  STAFF
+}
+
+enum OrderStatus {
+  PENDING // Đang pha chế
+  COMPLETED // Đã xong/Đã thanh toán
+  CANCELLED // Đã hủy
+}
