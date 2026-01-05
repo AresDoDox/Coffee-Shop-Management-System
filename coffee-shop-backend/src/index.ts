@@ -3,9 +3,6 @@ import { PrismaClient } from '@prisma/client';
 import { PrismaMariaDb } from '@prisma/adapter-mariadb';
 import dotenv from 'dotenv';
 
-
-
-
 dotenv.config();
 
 const app = express();
