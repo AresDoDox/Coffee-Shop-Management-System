@@ -41,3 +41,32 @@ graph LR
     Service -- 6. Return Data --> Controller
     Controller -- 7. Response JSON --> Client
 ```
+
+---
+## 4. Bài toán nâng cao: Transaction (Giao dịch)
+
+### Vấn đề "Được ăn cả, ngã về không"
+Trong tính năng Tạo Đơn Hàng (`POST /orders`), chúng ta phải thực hiện 2 hành động ghi vào Database:
+1.  Tạo bảng cha `Order` (Lưu tổng tiền, người mua).
+2.  Tạo nhiều bảng con `OrderItem` (Lưu từng món, số lượng).
+
+**Rủi ro:** Nếu tạo xong `Order` mà bị lỗi mạng không tạo được `OrderItem` -> Dữ liệu bị rác (Đơn hàng 0 đồng, không có món).
+
+### Giải pháp: Database Transaction
+Transaction đảm bảo tính **Nguyên tử (Atomicity)**:
+* ✅ Nếu cả 2 bước thành công -> Lưu tất cả (`Commit`).
+* ❌ Nếu 1 bước lỗi -> Hủy tất cả, quay về ban đầu (`Rollback`).
+
+Trong Prisma, ta sử dụng tính năng **Nested Writes** (Ghi lồng nhau) để tự động xử lý việc này:
+
+```typescript
+// Chỉ cần 1 lệnh create duy nhất để tạo cả Cha lẫn Con
+await prisma.order.create({
+  data: {
+    ...orderData,
+    items: {
+      create: [...] // Nếu dòng này lỗi, orderData cũng không được tạo
+    }
+  }
+});
+```
