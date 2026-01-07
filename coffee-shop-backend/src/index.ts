@@ -11,7 +11,10 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 
 import productRoutes from './routes/product.routes.js';
+import orderRoutes from './routes/order.routes.js';
+
 app.use('/api/products', productRoutes);
+app.use('/api/orders', orderRoutes);
 
 app.get('/', (req, res) => {
   res.json({ message: 'Coffee Shop Backend is running!' });

@@ -141,6 +141,39 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Create Order (Transaction)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 1,\r\n    \"items\": [\r\n        { \"productId\": 1, \"quantity\": 2, \"price\": 25000 },\r\n        { \"productId\": 2, \"quantity\": 1, \"price\": 29000 }\r\n    ]\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"variable": [
