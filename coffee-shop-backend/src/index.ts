@@ -1,28 +1,23 @@
+import './env.js';
 import express from 'express';
-import { PrismaClient } from '@prisma/client';
-import { PrismaMariaDb } from '@prisma/adapter-mariadb';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
 const app = express();
 
-let connectionString = process.env.DATABASE_URL!;
-if (connectionString.startsWith('mysql://')) {
-  connectionString = connectionString.replace('mysql://', 'mariadb://');
-}
-// Fix empty password issue causing parse error (root:@ => root@)
-connectionString = connectionString.replace(':@', '@');
-
-const adapter = new PrismaMariaDb(connectionString);
-const prisma = new PrismaClient({ adapter });
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
+import productRoutes from './routes/product.routes.js';
+app.use('/api/products', productRoutes);
+
 app.get('/', (req, res) => {
   res.json({ message: 'Coffee Shop Backend is running!' });
 });
+
+import prisma from './prisma.js';
 
 // Test database connection
 async function main() {
