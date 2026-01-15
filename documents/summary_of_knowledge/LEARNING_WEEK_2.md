@@ -42,6 +42,23 @@ graph LR
     Controller -- 7. Response JSON --> Client
 ```
 
+Cấu trúc thư mục chuẩn
+
+```bash
+src/
+├── controllers/       # Tầng Giao tiếp (Bồi bàn)
+│   ├── product.controller.ts
+│   └── order.controller.ts
+├── services/          # Tầng Nghiệp vụ (Đầu bếp)
+│   ├── product.service.ts
+│   └── order.service.ts
+├── routes/            # Tầng Định tuyến (Menu)
+│   ├── product.routes.ts
+│   └── order.routes.ts
+├── index.ts           # Cửa chính (Main Entry)
+└── ...
+```
+
 ---
 ## 4. Bài toán nâng cao: Transaction (Giao dịch)
 
