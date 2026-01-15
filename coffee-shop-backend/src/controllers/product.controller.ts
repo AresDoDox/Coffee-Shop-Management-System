@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Request, Response } from 'express';
 import { ProductService } from '../services/product.service.js';
+import errors from '../constants/errors.json' with { type: "json" };
 
 const productService = new ProductService();
 
@@ -10,7 +12,7 @@ export class ProductController {
       const product = await productService.createProduct(req.body);
       res.status(201).json(product);
     } catch (error: unknown) {
-      const message = error instanceof Error ? error.message : 'Unknown error';
+      const message = error instanceof Error ? error.message : errors.Common.UNKNOWN_ERROR;
       res.status(400).json({ error: message });
     }
   }
@@ -21,7 +23,7 @@ export class ProductController {
       const products = await productService.getAllProducts();
       res.json(products);
     } catch (error: unknown) {
-      const message = error instanceof Error ? error.message : 'Unknown error';
+      const message = error instanceof Error ? error.message : errors.Common.UNKNOWN_ERROR;
       res.status(500).json({ error: message });
     }
   }
@@ -32,12 +34,12 @@ export class ProductController {
       const id = Number(req.params.id);
       const product = await productService.getProductById(id);
       if (!product) {
-        res.status(404).json({ error: 'Product not found' });
+        res.status(404).json({ error: errors.PRODUCT.NOT_FOUND });
         return;
       }
       res.json(product);
     } catch (error: unknown) {
-      const message = error instanceof Error ? error.message : 'Unknown error';
+      const message = error instanceof Error ? error.message : errors.Common.UNKNOWN_ERROR;
       res.status(500).json({ error: message });
     }
   }
@@ -49,7 +51,7 @@ export class ProductController {
       const product = await productService.updateProduct(id, req.body);
       res.json(product);
     } catch (error: unknown) {
-      const message = error instanceof Error ? error.message : 'Unknown error';
+      const message = error instanceof Error ? error.message : errors.Common.UNKNOWN_ERROR;
       res.status(400).json({ error: message });
     }
   }
@@ -61,7 +63,7 @@ export class ProductController {
       await productService.deleteProduct(id);
       res.status(204).send();
     } catch (error: unknown) {
-      const message = error instanceof Error ? error.message : 'Unknown error';
+      const message = error instanceof Error ? error.message : errors.Common.UNKNOWN_ERROR;
       res.status(500).json({ error: message });
     }
   }

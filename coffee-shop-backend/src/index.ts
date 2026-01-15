@@ -12,9 +12,11 @@ app.use(express.json());
 
 import productRoutes from './routes/product.routes.js';
 import orderRoutes from './routes/order.routes.js';
+import userRoutes from './routes/user.routes.js';
 
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/users', userRoutes);
 
 app.get('/', (req, res) => {
   res.json({ message: 'Coffee Shop Backend is running!' });
