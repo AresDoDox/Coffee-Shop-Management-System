@@ -1,0 +1,23 @@
+{
+  "USER": {
+    "ALREADY_EXISTS": "User already exists",
+    "INVALID_CREDENTIALS": "Invalid email or password",
+    "MISSING_FIELDS": "Email and password are required",
+    "NOT_FOUND": "User not found"
+  },
+  "AUTH": {
+    "NO_TOKEN": "Unauthorized: No token provided",
+    "INVALID_TOKEN": "Forbidden: Invalid token",
+    "UNAUTHORIZED": "Unauthorized"
+  },
+  "PRODUCT": {
+    "NOT_FOUND": "Product not found"
+  },
+  "ORDER": {
+    "INVALID_INPUT": "Invalid input. Items (array) are required.",
+    "PRODUCT_NOT_FOUND": "Product with ID {id} not found"
+  },
+  "Common": {
+    "UNKNOWN_ERROR": "Unknown error"
+  }
+}
