@@ -1,6 +1,6 @@
 # Tuần 3: Bảo mật & Xác thực (Authentication)
 
-**Thời gian hoàn thành:** Tuần 4
+**Thời gian hoàn thành:** Tuần 3
 **Trạng thái:** ✅ Đã hoàn thành
 **Mục tiêu:** Xây dựng hệ thống Đăng ký/Đăng nhập và bảo vệ API bằng JSON Web Token (JWT).
 
