@@ -121,3 +121,55 @@ sequenceDiagram
 - [x] API Client: Đã cấu hình Axios Instance và Interceptor.
 
 - [x] Integration Test: Đã hiển thị được danh sách sản phẩm từ Database lên màn hình.
+
+---
+
+# Tuần 4 (Phần 2): Tích hợp Đăng nhập & Lưu trữ Token
+
+**Thời gian hoàn thành:** Tuần 4
+**Trạng thái:** ✅ Đã hoàn thành chức năng Login
+**Mục tiêu:** Xây dựng giao diện đăng nhập, gọi API xác thực và lưu trữ JWT Token vào LocalStorage.
+
+---
+
+## 1. Luồng xử lý Đăng nhập (Login Flow)
+
+Cơ chế xác thực phía Frontend hoạt động theo nguyên lý "Chìa khóa và Cái túi".
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant LoginPage as Login Form
+    participant AuthService
+    participant Backend
+    participant LocalStorage as Browser Storage
+
+    User->>LoginPage: 1. Nhập Email & Pass
+    LoginPage->>AuthService: 2. Gọi hàm loginAPI()
+    AuthService->>Backend: 3. POST /auth/login
+    
+    alt Sai thông tin
+        Backend-->>AuthService: Lỗi 401
+        AuthService-->>LoginPage: Báo lỗi "Sai mật khẩu"
+        LoginPage-->>User: Hiển thị thông báo đỏ
+    else Đúng thông tin
+        Backend-->>AuthService: Trả về { user, token }
+        AuthService-->>LoginPage: Trả data
+        
+        Note over LoginPage, LocalStorage: QUAN TRỌNG NHẤT
+        LoginPage->>LocalStorage: 4. Lưu Token ("Chìa khóa")
+        LoginPage->>LocalStorage: 5. Lưu User Info
+        
+        LoginPage->>User: 6. Chuyển hướng sang trang Menu (/menu)
+    end
+```
+
+---
+
+## 2. Các thư viện sử dụng
+
+- react-hook-form: Quản lý form (Validate input, handle submit) mà không cần tạo quá nhiều state.
+
+- react-router-dom: Điều hướng trang (useNavigate).
+
+- axios: Đã cấu hình Interceptor ở phần trước (Tự động lấy token từ LocalStorage gửi đi).
