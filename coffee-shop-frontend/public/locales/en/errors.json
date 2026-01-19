@@ -1,0 +1,7 @@
+{
+  "login_failed": "Login failed. Please check your credentials.",
+  "register_failed": "Registration failed. Please try again.",
+  "user_exists": "User already exists.",
+  "network_error": "Network error. Please check your connection.",
+  "default": "An unexpected error occurred."
+}

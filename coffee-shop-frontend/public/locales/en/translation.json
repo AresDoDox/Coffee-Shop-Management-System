@@ -1,0 +1,41 @@
+{
+  "welcome": "Welcome to Coffee Shop Management",
+  "login": {
+    "title": "Sign in to your account",
+    "email": "Email address",
+    "password": "Password",
+    "submit": "Sign In",
+    "loading": "Signing in...",
+    "register_prompt": "Don't have an account?",
+    "register_link": "Register here"
+  },
+  "register": {
+    "title": "Create an account",
+    "name": "Name",
+    "email": "Email address",
+    "password": "Password",
+    "submit": "Register",
+    "loading": "Creating account...",
+    "login_prompt": "Already have an account?",
+    "login_link": "Login here"
+  },
+  "home": {
+    "logout": "Logout",
+    "hello": "Hello"
+  },
+  "validation": {
+    "required": "This field is required",
+    "email_required": "Email is required",
+    "password_required": "Password is required",
+    "name_required": "Name is required",
+    "email_invalid": "Invalid email address",
+    "min_length": "Must be at least {{min}} characters"
+  },
+  "errors": {
+    "login_failed": "Login failed. Please check your credentials.",
+    "register_failed": "Registration failed. Please try again.",
+    "user_exists": "User already exists.",
+    "network_error": "Network error. Please check your connection.",
+    "default": "An unexpected error occurred."
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "login_failed": "Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin.",
+  "register_failed": "Đăng ký thất bại. Vui lòng thử lại.",
+  "user_exists": "Người dùng đã tồn tại.",
+  "network_error": "Lỗi kết nối. Vui lòng kiểm tra đường truyền.",
+  "default": "Đã xảy ra lỗi không mong muốn."
+}
