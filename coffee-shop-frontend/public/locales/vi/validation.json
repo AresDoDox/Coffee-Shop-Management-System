@@ -1,0 +1,8 @@
+{
+  "required": "Trường này là bắt buộc",
+  "email_required": "Email là bắt buộc",
+  "password_required": "Mật khẩu là bắt buộc",
+  "name_required": "Họ tên là bắt buộc",
+  "email_invalid": "Email không hợp lệ",
+  "min_length": "Phải có ít nhất {{min}} ký tự"
+}

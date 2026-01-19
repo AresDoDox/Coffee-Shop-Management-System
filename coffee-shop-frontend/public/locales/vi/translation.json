@@ -1,0 +1,41 @@
+{
+  "welcome": "Chào mừng đến với Quản lý Quán Cà phê",
+  "login": {
+    "title": "Đăng nhập vào tài khoản của bạn",
+    "email": "Địa chỉ Email",
+    "password": "Mật khẩu",
+    "submit": "Đăng nhập",
+    "loading": "Đang đăng nhập...",
+    "register_prompt": "Chưa có tài khoản?",
+    "register_link": "Đăng ký tại đây"
+  },
+  "register": {
+    "title": "Tạo tài khoản mới",
+    "name": "Họ tên",
+    "email": "Địa chỉ Email",
+    "password": "Mật khẩu",
+    "submit": "Đăng ký",
+    "loading": "Đang đăng ký...",
+    "login_prompt": "Đã có tài khoản?",
+    "login_link": "Đăng nhập tại đây"
+  },
+  "home": {
+    "logout": "Đăng xuất",
+    "hello": "Xin chào"
+  },
+  "validation": {
+    "required": "Trường này là bắt buộc",
+    "email_required": "Email là bắt buộc",
+    "password_required": "Mật khẩu là bắt buộc",
+    "name_required": "Họ tên là bắt buộc",
+    "email_invalid": "Email không hợp lệ",
+    "min_length": "Phải có ít nhất {{min}} ký tự"
+  },
+  "errors": {
+    "login_failed": "Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin.",
+    "register_failed": "Đăng ký thất bại. Vui lòng thử lại.",
+    "user_exists": "Người dùng đã tồn tại.",
+    "network_error": "Lỗi kết nối. Vui lòng kiểm tra đường truyền.",
+    "default": "Đã xảy ra lỗi không mong muốn."
+  }
+}
