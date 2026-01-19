@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import PosPage from './pages/PosPage';
 import PrivateRoute from './layouts/PrivateRoute';
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
         {/* Protected Routes */}
         <Route element={<PrivateRoute />}>
           <Route path="/" element={<HomePage />} />
+          <Route path="/pos" element={<PosPage />} />
         </Route>
 
         {/* Public Routes */}

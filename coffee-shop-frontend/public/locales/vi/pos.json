@@ -1,0 +1,19 @@
+{
+  "title": "Hệ thống POS",
+  "cart": {
+    "title": "Đơn hàng hiện tại",
+    "empty": "Giỏ hàng trống",
+    "empty_instruction": "Vui lòng chọn món từ menu",
+    "total": "Tổng tiền",
+    "pay_now": "Thanh toán ngay",
+    "processing": "Đang xử lý..."
+  },
+  "product": {
+    "loading": "Đang tải menu...",
+    "no_image": "Không có ảnh"
+  },
+  "messages": {
+    "order_success": "Đặt hàng thành công!",
+    "checkout_failed": "Thanh toán thất bại"
+  }
+}
