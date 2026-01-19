@@ -1,12 +1,19 @@
 import './env.js';
 import express from 'express';
 import dotenv from 'dotenv';
+import cors from 'cors';
 
 dotenv.config();
 
 const app = express();
 
 const port = process.env.PORT || 3000;
+
+// Cho phép Frontend (đang chạy ở cổng 5173) được gọi API
+app.use(cors({
+  origin: 'http://localhost:5173', 
+  credentials: true 
+}));
 
 app.use(express.json());
 

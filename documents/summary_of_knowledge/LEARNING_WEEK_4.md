@@ -1,0 +1,123 @@
+# Tuần 4: Xây dựng Frontend & Tích hợp hệ thống
+
+**Thời gian hoàn thành:** Tuần 4
+**Trạng thái:** ✅ Đã hoàn thành setup cơ bản
+**Mục tiêu:** Khởi tạo dự án React, cấu hình TailwindCSS và kết nối thành công với Backend API.
+
+---
+
+## 1. Vấn đề cốt lõi: CORS (Cross-Origin Resource Sharing)
+
+
+
+Trước khi Frontend và Backend nói chuyện được với nhau, ta phải xử lý bảo mật trình duyệt.
+
+* **Vấn đề:** Trình duyệt chặn request từ `localhost:5173` (Frontend) sang `localhost:3000` (Backend) vì khác cổng (Port).
+* **Giải pháp:** Cấu hình Backend cho phép Frontend truy cập.
+
+**Cấu hình tại Backend (`src/index.ts`):**
+```typescript
+import cors from 'cors';
+app.use(cors({
+  origin: 'http://localhost:5173', // Chỉ cho phép domain này
+  credentials: true // Cho phép gửi kèm cookie/token
+}));
+```
+
+---
+
+## 2. Tech Stack Frontend
+
+- Framework: React (Vite)
+- Language: TypeScript
+- Styling: TailwindCSS
+- HTTP Client: Axios
+- Routing: React Router DOM
+
+---
+
+## 3. Kiến trúc thư mục Frontend
+
+```bash
+src/
+├── components/   # Các UI nhỏ (Button, Input, Card)
+├── pages/        # Các màn hình chính (Login, Home, POS)
+├── services/     # Tầng giao tiếp API (Tương đương Service bên BE)
+│   ├── api.ts            # Cấu hình Axios gốc
+│   └── product.service.ts # Các hàm gọi API sản phẩm
+├── App.tsx       # Routing & Layout
+└── main.tsx      # Entry point
+```
+
+---
+
+## 4. Tầng mạng (Networking Layer) - Axios Instance
+
+Thay vì dùng fetch hoặc axios trần ở khắp nơi, ta tạo một Instance duy nhất.
+
+Lợi ích:
+
+1. DRY (Don't Repeat Yourself): Không cần gõ lại http://localhost:3000 nhiều lần.
+2. Automation: Tự động đính kèm Token vào mọi request thông qua Interceptors.
+
+Code mẫu (src/services/api.ts):
+
+```typescript
+import axios from 'axios';
+
+const api = axios.create({
+  baseURL: 'http://localhost:3000',
+  headers: { 'Content-Type': 'application/json' }
+});
+
+// Interceptor: Tự động kẹp Token vào Header trước khi gửi
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+export default api;
+```
+
+---
+
+## 5. Luồng dữ liệu (Integration Flow)
+
+```mermaid
+sequenceDiagram
+    participant ReactUI as React Component
+    participant Service as Frontend Service
+    participant Axios as Axios Instance
+    participant Backend as Node.js Server
+    participant DB as MySQL
+
+    ReactUI->>Service: 1. useEffect gọi getProducts()
+    Service->>Axios: 2. Gọi API GET /products
+    Axios->>Axios: 3. Interceptor (Kẹp Token nếu có)
+    Axios->>Backend: 4. Gửi HTTP Request
+    
+    Backend->>DB: 5. Query Database
+    DB-->>Backend: 6. Trả về Data
+    Backend-->>Axios: 7. Trả về JSON Response
+    
+    Axios-->>Service: 8. Trả về response.data
+    Service-->>ReactUI: 9. Data sạch
+    ReactUI->>ReactUI: 10. setState(products) -> Render UI
+```
+
+---
+
+## 6. Checklist hoàn thành
+
+- [x] Backend CORS: Đã mở cổng cho Frontend kết nối.
+
+- [x] Project Setup: Vite + React + TS + TailwindCSS.
+
+- [x] Architecture: Đã tạo cấu trúc folder services, pages, components.
+
+- [x] API Client: Đã cấu hình Axios Instance và Interceptor.
+
+- [x] Integration Test: Đã hiển thị được danh sách sản phẩm từ Database lên màn hình.
