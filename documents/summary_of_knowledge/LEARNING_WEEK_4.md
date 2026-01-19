@@ -173,3 +173,42 @@ sequenceDiagram
 - react-router-dom: Điều hướng trang (useNavigate).
 
 - axios: Đã cấu hình Interceptor ở phần trước (Tự động lấy token từ LocalStorage gửi đi).
+
+---
+
+# Tuần 4 (Phần 3): Bảo vệ Route (Private Route)
+
+**Thời gian hoàn thành:** Tuần 4
+**Trạng thái:** ✅ Đã hoàn thành bảo mật Frontend
+**Mục tiêu:** Chặn người dùng chưa đăng nhập truy cập trực tiếp vào các trang nội bộ bằng cách gõ URL.
+
+---
+
+## 1. Khái niệm Private Route
+Trong React Router v6, **Private Route** hoạt động như một lớp vỏ bọc (Wrapper Component). Nó kiểm tra điều kiện xác thực (Token) trước khi quyết định có hiển thị nội dung bên trong hay không.
+
+### Luồng xử lý (Logic Flow)
+
+```mermaid
+graph TD
+    User[Người dùng] --> URL[Truy cập /menu]
+    URL --> PrivateRoute{Kiểm tra LocalStorage}
+    
+    PrivateRoute -- Có Token --> Outlet[< Outlet / >]
+    Outlet --> Page[Hiển thị trang Menu]
+    
+    PrivateRoute -- Không có Token --> Navigate[< Navigate toLogin / >]
+    Navigate --> Login[Chuyển về trang Login]
+```
+
+---
+
+# Tổng kết Tuần 4:
+
+- [x] Core: Setup React + Tailwind + Axios Instance.
+
+- [x] API: Kết nối Backend, xử lý CORS.
+
+- [x] Auth: Đăng nhập, Lưu trữ Token, Logout.
+
+- [x] Security: Bảo vệ các trang nội bộ (Private Route). 
