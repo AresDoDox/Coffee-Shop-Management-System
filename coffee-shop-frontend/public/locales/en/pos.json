@@ -1,0 +1,19 @@
+{
+  "title": "POS System",
+  "cart": {
+    "title": "Current Order",
+    "empty": "Cart is empty",
+    "empty_instruction": "Select items from the menu",
+    "total": "Total",
+    "pay_now": "Pay Now",
+    "processing": "Processing..."
+  },
+  "product": {
+    "loading": "Loading menu...",
+    "no_image": "No Image"
+  },
+  "messages": {
+    "order_success": "Order placed successfully!",
+    "checkout_failed": "Checkout failed"
+  }
+}
