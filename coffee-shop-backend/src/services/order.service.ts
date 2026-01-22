@@ -1,5 +1,6 @@
 import prisma from '../prisma.js';
 import { order_status } from '@prisma/client';
+import { getIO } from '../socket.js';
 
 interface OrderItemInput {
   productId: number;
@@ -59,6 +60,15 @@ export class OrderService {
         } // Return the created items for confirmation
       }
     });
+
+    // Notify Kitchen
+    try {
+      const io = getIO();
+      io.to('kitchen_room').emit('new_order', newOrder);
+      console.log(`[Socket] Emitted new_order for Order #${newOrder.id}`);
+    } catch (error) {
+      console.error('[Socket] Failed to emit event:', error);
+    }
 
     return newOrder;
   }

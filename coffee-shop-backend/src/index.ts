@@ -44,8 +44,16 @@ async function main() {
   }
 }
 
+import { createServer } from 'http';
+import { initSocket } from './socket.js';
+
+// ... (previous imports)
+
+const httpServer = createServer(app);
+initSocket(httpServer);
+
 main().then(() => {
-  app.listen(port, () => {
+  httpServer.listen(port, () => {
     console.log(`🚀 Server ready at: http://localhost:${port}`);
   });
 });
