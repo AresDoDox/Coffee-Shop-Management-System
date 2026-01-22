@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Giả lập Màn Hình Bếp</title>
+    <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        #messages { list-style-type: none; margin: 0; padding: 0; }
+        #messages li { padding: 8px; margin-bottom: 10px; background: #f0f0f0; border-left: 5px solid #4CAF50; }
+    </style>
+</head>
+<body>
+    <h1>👨‍🍳 Màn Hình Bếp (Test)</h1>
+    <p>Trạng thái: <span id="status" style="color:red; font-weight:bold">Đang kết nối...</span></p>
+    <ul id="messages"></ul>
+
+    <script>
+        // 1. Kết nối tới Server Backend (Lưu ý đúng PORT 3000)
+        const socket = io("http://localhost:3000");
+
+        const status = document.getElementById('status');
+        const list = document.getElementById('messages');
+
+        // 2. Lắng nghe sự kiện kết nối thành công
+        socket.on("connect", () => {
+            status.innerText = "🟢 Đã kết nối (Online)";
+            status.style.color = "green";
+            console.log("My Socket ID:", socket.id);
+
+            // 3. Quan trọng: Xin Server cho vào phòng Bếp
+            socket.emit("join_kitchen");
+            addLog("Đã gửi lệnh: join_kitchen");
+        });
+
+        // 4. Lắng nghe sự kiện 'new_order' từ Server bắn về
+        socket.on("new_order", (data) => {
+            console.log("Nhận đơn hàng:", data);
+            addLog(`🔔 TING TING! Có đơn mới #${data.id} - Tổng tiền: ${data.totalAmount}`);
+        });
+
+        socket.on("disconnect", () => {
+            status.innerText = "🔴 Mất kết nối";
+            status.style.color = "red";
+        });
+
+        function addLog(text) {
+            const item = document.createElement('li');
+            item.textContent = text;
+            list.appendChild(item);
+        }
+    </script>
+</body>
+</html>
