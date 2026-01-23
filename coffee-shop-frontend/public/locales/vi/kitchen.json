@@ -1,0 +1,20 @@
+{
+  "title": "Bảng điều khiển Bếp",
+  "status": {
+    "connected": "Đã kết nối",
+    "disconnected": "Mất kết nối"
+  },
+  "order": {
+    "title": "Đơn #{{id}}",
+    "total": "Tổng tiền",
+    "status": "Trạng thái",
+    "mark_done": "Hoàn thành"
+  },
+  "empty": {
+    "title": "Hiện không có đơn hàng",
+    "message": "Đang chờ đơn hàng mới..."
+  },
+  "notification": {
+    "new_order": "Có đơn hàng mới!"
+  }
+}
