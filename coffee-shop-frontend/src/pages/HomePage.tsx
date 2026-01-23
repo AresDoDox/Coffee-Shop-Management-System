@@ -29,6 +29,12 @@ const HomePage: React.FC = () => {
         <div className="flex items-center gap-4">
           <LanguageSwitcher />
           <button
+            onClick={() => navigate('/admin/products')}
+            className="rounded bg-blue-500 px-4 py-2 font-bold text-white transition-colors hover:bg-blue-600"
+          >
+            {t('product:add_new')}
+          </button>
+          <button
             onClick={handleLogout}
             className="rounded bg-red-500 px-4 py-2 font-bold text-white transition-colors hover:bg-red-600"
           >

@@ -4,5 +4,9 @@
   "password_required": "Mật khẩu là bắt buộc",
   "name_required": "Họ tên là bắt buộc",
   "email_invalid": "Email không hợp lệ",
-  "min_length": "Phải có ít nhất {{min}} ký tự"
+  "min_length": "Phải có ít nhất {{min}} ký tự",
+  "product": {
+    "name_required": "Tên sản phẩm là bắt buộc",
+    "price_min": "Giá phải lớn hơn hoặc bằng 0"
+  }
 }
