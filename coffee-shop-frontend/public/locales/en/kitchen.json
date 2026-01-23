@@ -1,0 +1,20 @@
+{
+  "title": "Kitchen Dashboard",
+  "status": {
+    "connected": "Connected",
+    "disconnected": "Disconnected"
+  },
+  "order": {
+    "title": "Order #{{id}}",
+    "total": "Total",
+    "status": "Status",
+    "mark_done": "Mark as Done"
+  },
+  "empty": {
+    "title": "No active orders",
+    "message": "Waiting for new orders from POS..."
+  },
+  "notification": {
+    "new_order": "New order received!"
+  }
+}
