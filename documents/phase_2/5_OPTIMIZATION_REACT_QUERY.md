@@ -38,10 +38,8 @@ graph TD
     User[User Submit Form] -->|1. Gọi API| Mutation[useMutation]
     Mutation -->|2. Gửi Request| API[Backend Server]
     API -- 200 OK --> Mutation
-    
     Mutation -->|3. onSuccess| Client[QueryClient]
-    Client -->|4. invalidateQueries('products')| Cache[Cache Store]
-    
+    Client -->|4. invalidateQueries 'products'| Cache[Cache Store]
     Cache -->|5. Đánh dấu 'products' là cũ| Refetch
     Refetch -->|6. Tự động gọi GET /products| ListUI[Cập nhật Danh sách UI]
 ```

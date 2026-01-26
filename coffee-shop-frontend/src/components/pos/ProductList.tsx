@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { getProducts } from '../../services/product.service';
 import type { Product } from '../../services/product.service';
@@ -10,26 +10,18 @@ interface ProductListProps {
 
 const ProductList: React.FC<ProductListProps> = ({ onAddToCart }) => {
   const { t } = useTranslation('pos');
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const data = await getProducts();
-        setProducts(data);
-      } catch (error) {
-        console.error('Failed to fetch products', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const { data: products = [], isLoading, error } = useQuery({
+    queryKey: ['products'],
+    queryFn: getProducts,
+  });
 
-    fetchProducts();
-  }, []);
-
-  if (loading) {
+  if (isLoading) {
     return <div className="flex h-full items-center justify-center">{t('product.loading')}</div>;
+  }
+
+  if (error) {
+    return <div className="flex h-full items-center justify-center text-red-500">Error loading products</div>;
   }
 
   return (

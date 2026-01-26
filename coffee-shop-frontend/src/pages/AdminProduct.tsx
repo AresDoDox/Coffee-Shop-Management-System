@@ -9,12 +9,13 @@ import type { ProductSchema } from '../validations/product.schema';
 import { uploadImage } from '../services/upload.service';
 import { createProduct } from '../services/product.service';
 
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+
 const AdminProduct: React.FC = () => {
   const { t } = useTranslation(['product', 'validation', 'common']);
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
+  const queryClient = useQueryClient();
 
   const {
     register,
@@ -38,10 +39,9 @@ const AdminProduct: React.FC = () => {
     }
   }, [imageFile]);
 
-  const onSubmit = async (data: ProductSchema) => {
-    setLoading(true);
-    setError(null);
-    try {
+  const mutation = useMutation({
+    mutationFn: async (data: ProductSchema) => {
+      // ... (existing mutationFn)
       let imageUrl = '';
       
       // 1. Upload Image
@@ -50,22 +50,29 @@ const AdminProduct: React.FC = () => {
       }
 
       // 2. Create Product
-      await createProduct({
+      return createProduct({
         name: data.name,
         price: Number(data.price),
         categoryId: Number(data.category),
         imageUrl: imageUrl, // Use the returned Cloudinary URL
       });
-
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['products'] });
       alert(t('common:success'));
       navigate('/'); // Go back to home or product list
-    } catch (err) {
+    },
+    onError: (err) => {
       console.error(err);
-      setError(t('common:error_occurred'));
-    } finally {
-      setLoading(false);
-    }
+    },
+  });
+
+  const onSubmit = (data: ProductSchema) => {
+    mutation.mutate(data);
   };
+
+  const loading = mutation.isPending;
+  const error = mutation.error ? t('common:error_occurred') : null;
 
   return (
     <div className="flex min-h-screen flex-col items-center bg-gray-50 p-6">
