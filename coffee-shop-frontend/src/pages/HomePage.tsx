@@ -6,7 +6,7 @@ import { logout } from '../store/slices/auth/auth.actions';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 
 const HomePage: React.FC = () => {
-  const { t } = useTranslation(['home', 'common']);
+  const { t } = useTranslation(['home', 'product', 'common']);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { user, isAuthenticated } = useAppSelector((state) => state.auth);
