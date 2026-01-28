@@ -24,12 +24,13 @@
 							"raw": "{\r\n    \"email\": \"staff@coffee.com\",\r\n    \"password\": \"123456\",\r\n    \"name\": \"New Staff\"\r\n}"
 						},
 						"url": {
-							"raw": "{{baseUrl}}/api/users/register",
+							"raw": "{{baseUrl}}/api/v1/users/register",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"api",
+								"v1",
 								"users",
 								"register"
 							]
@@ -53,12 +54,13 @@
 							"raw": "{\r\n    \"email\": \"staff@coffee.com\",\r\n    \"password\": \"123456\"\r\n}"
 						},
 						"url": {
-							"raw": "{{baseUrl}}/api/users/login",
+							"raw": "{{baseUrl}}/api/v1/users/login",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"api",
+								"v1",
 								"users",
 								"login"
 							]
@@ -77,12 +79,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/api/products",
+							"raw": "{{baseUrl}}/api/v1/products",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"api",
+								"v1",
 								"products"
 							]
 						}
@@ -95,12 +98,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/api/products/:id",
+							"raw": "{{baseUrl}}/api/v1/products/:id",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"api",
+								"v1",
 								"products",
 								":id"
 							],
@@ -131,12 +135,13 @@
 							"raw": "{\r\n    \"name\": \"Cappuccino\",\r\n    \"description\": \"Italian coffee drink\",\r\n    \"price\": 4.5,\r\n    \"categoryId\": 1,\r\n    \"imageUrl\": \"https://example.com/cappuccino.jpg\"\r\n}"
 						},
 						"url": {
-							"raw": "{{baseUrl}}/api/products",
+							"raw": "{{baseUrl}}/api/v1/products",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"api",
+								"v1",
 								"products"
 							]
 						}
@@ -159,12 +164,13 @@
 							"raw": "{\r\n    \"price\": 5.0,\r\n    \"isAvailable\": false\r\n}"
 						},
 						"url": {
-							"raw": "{{baseUrl}}/api/products/:id",
+							"raw": "{{baseUrl}}/api/v1/products/:id",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"api",
+								"v1",
 								"products",
 								":id"
 							],
@@ -184,12 +190,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/api/products/:id",
+							"raw": "{{baseUrl}}/api/v1/products/:id",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"api",
+								"v1",
 								"products",
 								":id"
 							],
@@ -224,12 +231,13 @@
 							"raw": "{\r\n    \"userId\": 1,\r\n    \"items\": [\r\n        { \"productId\": 1, \"quantity\": 2, \"price\": 25000 },\r\n        { \"productId\": 2, \"quantity\": 1, \"price\": 29000 }\r\n    ]\r\n}"
 						},
 						"url": {
-							"raw": "{{baseUrl}}/api/orders",
+							"raw": "{{baseUrl}}/api/v1/orders",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"api",
+								"v1",
 								"orders"
 							]
 						}
@@ -265,6 +273,41 @@
 								"api",
 								"v1",
 								"upload"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Stats",
+			"item": [
+				{
+					"name": "Get Dashboard Stats",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/stats/dashboard",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"stats",
+								"dashboard"
 							]
 						}
 					},
