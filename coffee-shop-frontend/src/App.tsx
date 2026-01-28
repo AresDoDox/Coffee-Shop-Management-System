@@ -5,6 +5,7 @@ import RegisterPage from './pages/RegisterPage';
 import PosPage from './pages/PosPage';
 import KitchenPage from './pages/KitchenPage';
 import AdminProduct from './pages/AdminProduct';
+import DashboardPage from './pages/DashboardPage';
 import PrivateRoute from './layouts/PrivateRoute';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route element={<PrivateRoute />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/admin/products" element={<AdminProduct />} />
+          <Route path="/admin/dashboard" element={<DashboardPage />} />
           <Route path="/pos" element={<PosPage />} />
           <Route path="/kitchen" element={<KitchenPage />} />
         </Route>
