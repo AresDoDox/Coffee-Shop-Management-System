@@ -1,3 +1,19 @@
 {
-  "welcome": "Chào mừng đến với Quản lý Quán Cà phê"
+  "welcome": "Chào mừng đến với Quản lý Quán Cà phê",
+  "menu": {
+    "home": "Trang chủ",
+    "dashboard": "Tổng quan",
+    "pos": "Bán hàng",
+    "kitchen": "Bếp",
+    "products": "Sản phẩm"
+  },
+  "logout": "Đăng xuất",
+  "role": {
+    "admin": "Quản trị viên",
+    "manager": "Quản lý"
+  },
+  "loading": "Đang tải...",
+  "submit": "Xác nhận",
+  "success": "Thành công",
+  "error_occurred": "Đã xảy ra lỗi"
 }

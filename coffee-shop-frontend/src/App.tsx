@@ -7,6 +7,7 @@ import KitchenPage from './pages/KitchenPage';
 import AdminProduct from './pages/AdminProduct';
 import DashboardPage from './pages/DashboardPage';
 import PrivateRoute from './layouts/PrivateRoute';
+import MainLayout from './layouts/MainLayout';
 
 function App() {
   return (
@@ -14,11 +15,13 @@ function App() {
       <Routes>
         {/* Protected Routes */}
         <Route element={<PrivateRoute />}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/admin/products" element={<AdminProduct />} />
-          <Route path="/admin/dashboard" element={<DashboardPage />} />
-          <Route path="/pos" element={<PosPage />} />
-          <Route path="/kitchen" element={<KitchenPage />} />
+          <Route element={<MainLayout />}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/admin/products" element={<AdminProduct />} />
+            <Route path="/admin/dashboard" element={<DashboardPage />} />
+            <Route path="/pos" element={<PosPage />} />
+            <Route path="/kitchen" element={<KitchenPage />} />
+          </Route>
         </Route>
 
         {/* Public Routes */}

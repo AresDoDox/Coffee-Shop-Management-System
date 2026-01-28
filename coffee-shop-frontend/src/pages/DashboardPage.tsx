@@ -5,8 +5,10 @@ import StatsCard from '../components/dashboard/StatsCard';
 import SalesChart from '../components/dashboard/SalesChart';
 import RecentOrdersTable from '../components/dashboard/RecentOrdersTable';
 import { DollarSign, ShoppingBag, TrendingUp } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const DashboardPage: React.FC = () => {
+  const { t } = useTranslation(['dashboard', 'common']);
   const { data: stats, isLoading, error } = useQuery({
     queryKey: ['dashboard_stats'],
     queryFn: getDashboardStats,
@@ -15,14 +17,14 @@ const DashboardPage: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="flex h-screen items-center justify-center bg-[#F8F5F2]">
-        <div className="h-10 w-10 animate-spin rounded-full border-4 border-[#4B362F] border-t-transparent"></div>
+      <div className="flex h-screen items-center justify-center bg-background">
+        <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
       </div>
     );
   }
 
   if (error) {
-    return <div className="text-center text-red-500 bg-[#F8F5F2] h-screen pt-10">Error loading dashboard data.</div>;
+    return <div className="text-center text-red-500 bg-background h-screen pt-10">{t('dashboard:error')}</div>;
   }
 
   const defaultStats = {
@@ -35,19 +37,19 @@ const DashboardPage: React.FC = () => {
   const data = stats || defaultStats;
 
   return (
-    <div className="min-h-screen bg-[#F8F5F2] p-8">
+    <div className="min-h-screen bg-background p-8">
       <header className="mb-8 flex items-center justify-between">
         <div>
-           <h1 className="text-3xl font-bold text-[#2D2626]">Dashboard</h1>
-           <p className="text-gray-500">Overview of your coffee shop performance.</p>
+           <h1 className="text-3xl font-bold text-textMain">{t('dashboard:title')}</h1>
+           <p className="text-gray-500">{t('dashboard:subtitle')}</p>
         </div>
         <div className="flex items-center gap-3">
              <div className="h-10 w-10 overflow-hidden rounded-full bg-white p-1">
                  <img src="https://ui-avatars.com/api/?name=Admin&background=4B362F&color=fff" alt="Admin" className="h-full w-full rounded-full" />
              </div>
              <div>
-                <p className="text-sm font-bold text-[#2D2626]">Admin User</p>
-                <p className="text-xs text-gray-500">Manager</p>
+                <p className="text-sm font-bold text-textMain">{t('common:role.admin')}</p>
+                <p className="text-xs text-textMuted">{t('common:role.manager')}</p>
              </div>
         </div>
       </header>
@@ -55,20 +57,20 @@ const DashboardPage: React.FC = () => {
       {/* Stats Cards */}
       <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-3">
         <StatsCard
-          title="Total Revenue"
+          title={t('dashboard:revenue')}
           value={`$${data.revenue.toLocaleString()}`}
-          icon={<DollarSign className="text-[#4B362F]" size={24} />}
-          trend="+12% from last month"
+          icon={<DollarSign className="text-primary" size={24} />}
+          trend={t('dashboard:revenue_trend')}
         />
         <StatsCard
-          title="Total Orders"
+          title={t('dashboard:orders')}
           value={data.totalOrders}
-          icon={<ShoppingBag className="text-[#4B362F]" size={24} />}
+          icon={<ShoppingBag className="text-primary" size={24} />}
         />
         <StatsCard
-          title="Avg. Order Value"
+          title={t('dashboard:avg_order')}
           value={`$${(data.revenue / (data.totalOrders || 1)).toFixed(2)}`}
-          icon={<TrendingUp className="text-[#4B362F]" size={24} />}
+          icon={<TrendingUp className="text-primary" size={24} />}
         />
       </div>
 

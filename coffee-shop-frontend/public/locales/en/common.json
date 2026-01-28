@@ -1,3 +1,19 @@
 {
-  "welcome": "Welcome to Coffee Shop Management"
+  "welcome": "Welcome to Coffee Shop Management",
+  "menu": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "pos": "POS",
+    "kitchen": "Kitchen",
+    "products": "Products"
+  },
+  "logout": "Logout",
+  "role": {
+    "admin": "Admin User",
+    "manager": "Manager"
+  },
+  "loading": "Loading...",
+  "submit": "Submit",
+  "success": "Success",
+  "error_occurred": "An error occurred"
 }
