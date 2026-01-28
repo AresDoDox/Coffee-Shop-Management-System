@@ -1,0 +1,18 @@
+{
+  "title": "Dashboard",
+  "subtitle": "Overview of your coffee shop performance.",
+  "revenue": "Total Revenue",
+  "revenue_trend": "+12% from last month",
+  "orders": "Total Orders",
+  "avg_order": "Avg. Order Value",
+  "top_selling": "Top Selling Products",
+  "recent_orders": "Recent Orders",
+  "table": {
+    "order_id": "Order ID",
+    "staff": "Staff",
+    "amount": "Amount",
+    "time": "Time"
+  },
+  "loading": "Loading dashboard data...",
+  "error": "Error loading dashboard data."
+}

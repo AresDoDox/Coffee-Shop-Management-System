@@ -1,0 +1,18 @@
+{
+  "title": "Tổng quan",
+  "subtitle": "Tổng quan về hiệu suất quán cà phê của bạn.",
+  "revenue": "Doanh thu",
+  "revenue_trend": "+12% so với tháng trước",
+  "orders": "Đơn hàng",
+  "avg_order": "Giá trị ĐH TB",
+  "top_selling": "Sản phẩm bán chạy",
+  "recent_orders": "Đơn hàng gần đây",
+  "table": {
+    "order_id": "Mã đơn",
+    "staff": "Nhân viên",
+    "amount": "Tổng tiền",
+    "time": "Thời gian"
+  },
+  "loading": "Đang tải dữ liệu...",
+  "error": "Lỗi khi tải dữ liệu."
+}

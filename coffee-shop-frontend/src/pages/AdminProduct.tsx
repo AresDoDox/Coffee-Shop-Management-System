@@ -27,6 +27,7 @@ const AdminProduct: React.FC = () => {
     resolver: zodResolver(createProductSchema(t)),
   });
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const imageFile = watch('image');
 
   // Handle image preview
@@ -75,9 +76,9 @@ const AdminProduct: React.FC = () => {
   const error = mutation.error ? t('common:error_occurred') : null;
 
   return (
-    <div className="flex min-h-screen flex-col items-center bg-gray-50 p-6">
-      <div className="w-full max-w-lg rounded-lg bg-white p-8 shadow-md">
-        <h1 className="mb-6 text-2xl font-bold text-gray-800">{t('product:add_new')}</h1>
+    <div className="flex min-h-screen flex-col items-center bg-background p-6">
+      <div className="w-full max-w-lg rounded-lg bg-surface p-8 shadow-md">
+        <h1 className="mb-6 text-2xl font-bold text-textMain">{t('product:add_new')}</h1>
 
         {error && (
             <div className="mb-4 rounded bg-red-100 p-3 text-sm text-red-700">
@@ -87,13 +88,13 @@ const AdminProduct: React.FC = () => {
 
         <form onSubmit={handleSubmit(onSubmit as any)} className="space-y-4">
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-700">
+            <label className="mb-1 block text-sm font-medium text-textMain">
               {t('product:name')}
             </label>
             <input
               type="text"
               {...register('name')}
-              className="w-full rounded border border-gray-300 p-2 focus:border-blue-500 focus:outline-none"
+              className="w-full rounded border border-secondary p-2 focus:border-primary focus:outline-none"
             />
             {errors.name && (
               <span className="text-sm text-red-500">{errors.name.message as string}</span>
@@ -101,13 +102,13 @@ const AdminProduct: React.FC = () => {
           </div>
 
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-700">
+            <label className="mb-1 block text-sm font-medium text-textMain">
               {t('product:price')}
             </label>
             <input
               type="number"
               {...register('price')}
-              className="w-full rounded border border-gray-300 p-2 focus:border-blue-500 focus:outline-none"
+              className="w-full rounded border border-secondary p-2 focus:border-primary focus:outline-none"
             />
              {errors.price && (
               <span className="text-sm text-red-500">{errors.price.message as string}</span>
@@ -115,25 +116,25 @@ const AdminProduct: React.FC = () => {
           </div>
 
           <div>
-             <label className="mb-1 block text-sm font-medium text-gray-700">
+             <label className="mb-1 block text-sm font-medium text-textMain">
               {t('product:category')}
             </label>
              <input
               type="text"
               {...register('category')}
-              className="w-full rounded border border-gray-300 p-2 focus:border-blue-500 focus:outline-none"
+              className="w-full rounded border border-secondary p-2 focus:border-primary focus:outline-none"
             />
           </div>
 
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-700">
+            <label className="mb-1 block text-sm font-medium text-textMain">
               {t('product:image')}
             </label>
             <input
               type="file"
               accept="image/*"
               {...register('image')}
-              className="w-full rounded border border-gray-300 p-2"
+              className="w-full rounded border border-secondary p-2"
             />
             {preview && (
               <div className="mt-4">
@@ -145,7 +146,7 @@ const AdminProduct: React.FC = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded bg-blue-600 px-4 py-2 font-bold text-white hover:bg-blue-700 disabled:bg-blue-300"
+            className="w-full rounded bg-primary px-4 py-2 font-bold text-primary-foreground hover:bg-primary/90 disabled:bg-gray-300"
           >
             {loading ? t('common:loading') : t('common:submit')}
           </button>

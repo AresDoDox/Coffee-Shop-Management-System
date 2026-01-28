@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface Order {
   id: number;
@@ -13,26 +14,28 @@ interface RecentOrdersTableProps {
 }
 
 const RecentOrdersTable: React.FC<RecentOrdersTableProps> = ({ orders }) => {
+  const { t } = useTranslation('dashboard');
+
   return (
-    <div className="rounded-2xl bg-white p-6 shadow-sm">
-      <h3 className="mb-4 text-lg font-bold text-[#2D2626]">Recent Orders</h3>
+    <div className="rounded-2xl bg-surface p-6 shadow-sm">
+      <h3 className="mb-4 text-lg font-bold text-textMain">{t('recent_orders')}</h3>
       <div className="overflow-x-auto">
         <table className="w-full text-left">
           <thead>
-            <tr className="border-b border-gray-100 text-sm text-gray-500">
-              <th className="pb-3 font-medium">Order ID</th>
-              <th className="pb-3 font-medium">Staff</th>
-              <th className="pb-3 font-medium">Amount</th>
-              <th className="pb-3 font-medium">Time</th>
+            <tr className="border-b border-gray-100 text-sm text-textMuted">
+              <th className="pb-3 font-medium">{t('table.order_id')}</th>
+              <th className="pb-3 font-medium">{t('table.staff')}</th>
+              <th className="pb-3 font-medium">{t('table.amount')}</th>
+              <th className="pb-3 font-medium">{t('table.time')}</th>
             </tr>
           </thead>
           <tbody className="text-sm">
             {orders.map((order) => (
-              <tr key={order.id} className="group hover:bg-[#F8F5F2]">
-                <td className="py-3 font-medium text-[#2D2626]">#{order.id}</td>
+              <tr key={order.id} className="group hover:bg-background">
+                <td className="py-3 font-medium text-textMain">#{order.id}</td>
                 <td className="py-3 text-gray-600">{order.user?.name}</td>
-                <td className="py-3 font-bold text-[#4B362F]">${order.totalAmount.toLocaleString()}</td>
-                <td className="py-3 text-gray-400">{new Date(order.createdAt).toLocaleTimeString()}</td>
+                <td className="py-3 font-bold text-primary">${order.totalAmount.toLocaleString()}</td>
+                <td className="py-3 text-textMuted">{new Date(order.createdAt).toLocaleTimeString()}</td>
               </tr>
             ))}
           </tbody>
