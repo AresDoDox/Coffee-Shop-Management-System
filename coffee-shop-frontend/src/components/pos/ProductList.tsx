@@ -12,8 +12,9 @@ const ProductList: React.FC<ProductListProps> = ({ onAddToCart }) => {
   const { t } = useTranslation('pos');
 
   const { data: products = [], isLoading, error } = useQuery({
-    queryKey: ['products'],
-    queryFn: getProducts,
+    queryKey: ['products', 'pos'], // Distinct key for POS
+    queryFn: () => getProducts({ page: 1, limit: 100 }), // Fetch more for POS
+    select: (response) => response.data.filter((product) => product.isAvailable !== false),
   });
 
   if (isLoading) {

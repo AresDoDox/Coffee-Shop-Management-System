@@ -2,7 +2,13 @@
   "add_new": "Thêm Sản Phẩm Mới",
   "name": "Tên Sản Phẩm",
   "price": "Giá",
-  "category": "Danh Mục",
-  "image": "Hình Ảnh",
-  "description": "Mô Tả"
+  "category": "Danh mục",
+  "image": "Hình ảnh",
+  "description": "Mô tả",
+  "is_available": "Có sẵn",
+  "status": "Trạng thái",
+  "available": "Đang bán",
+  "unavailable": "Ngừng bán",
+  "select_category": "Chọn danh mục",
+  "product_list": "Danh sách sản phẩm"
 }

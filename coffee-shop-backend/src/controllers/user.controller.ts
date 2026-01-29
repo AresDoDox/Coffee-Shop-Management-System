@@ -10,7 +10,10 @@ export class UserController {
     try {
       const { email, password, name } = req.body;
       if (!email || !password) {
-        res.status(400).json({ error: errors.USER.MISSING_FIELDS });
+        res.status(400).json({
+          code: 'MISSING_FIELDS',
+          message: errors.USER.MISSING_FIELDS
+        });
         return;
       }
       
@@ -18,7 +21,10 @@ export class UserController {
       res.status(201).json(user);
     } catch (error: unknown) {
       const message = error instanceof Error ? error.message : errors.Common.UNKNOWN_ERROR;
-      res.status(400).json({ error: message });
+      res.status(400).json({
+        code: 'REGISTER_FAILED',
+        message: message === errors.Common.UNKNOWN_ERROR ? errors.USER.REGISTER_FAILED : message
+      });
     }
   }
 
@@ -26,7 +32,10 @@ export class UserController {
     try {
       const { email, password } = req.body;
       if (!email || !password) {
-        res.status(400).json({ error: errors.USER.MISSING_FIELDS });
+        res.status(400).json({
+          code: 'MISSING_FIELDS',
+          message: errors.USER.MISSING_FIELDS
+        });
         return;
       }
 
@@ -34,7 +43,10 @@ export class UserController {
       res.json(result);
     } catch (error: unknown) {
       const message = error instanceof Error ? error.message : errors.Common.UNKNOWN_ERROR;
-      res.status(401).json({ error: message });
+      res.status(401).json({
+        code: 'LOGIN_FAILED',
+        message: message === errors.Common.UNKNOWN_ERROR ? errors.USER.LOGIN_FAILED : message
+      });
     }
   }
 }

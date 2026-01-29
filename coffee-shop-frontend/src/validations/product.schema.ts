@@ -6,6 +6,7 @@ export const createProductSchema = (t: (key: string) => string) => {
     price: z.coerce.number().min(0, t('validation:product.price_min')),
     category: z.string().optional(),
     description: z.string().optional(),
+    isAvailable: z.boolean().optional(),
     image: z.any().optional(), 
   });
 };

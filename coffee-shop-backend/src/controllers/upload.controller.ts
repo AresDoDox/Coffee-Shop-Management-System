@@ -2,6 +2,8 @@
 import type { Request, Response } from 'express';
 import cloudinary from '../config/cloudinary.js';
 
+import errors from '../constants/errors.json' with { type: "json" };
+
 interface MulterRequest extends Request {
   file?: any; // Use any to bypass strict type checking for now
 }
@@ -10,7 +12,10 @@ export const uploadImage = async (req: Request, res: Response) => {
   const multerReq = req as MulterRequest;
   try {
     if (!multerReq.file) {
-      return res.status(400).json({ message: 'No file uploaded' });
+      return res.status(400).json({
+        code: 'NO_FILE',
+        message: errors.UPLOAD.NO_FILE
+      });
     }
 
     // Convert buffer to base64
@@ -30,6 +35,10 @@ export const uploadImage = async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('Upload Error:', error);
-    res.status(500).json({ message: 'Upload failed', error });
+    res.status(500).json({
+      code: 'FAILED',
+      message: errors.UPLOAD.FAILED,
+      error
+    });
   }
 };

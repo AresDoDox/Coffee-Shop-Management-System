@@ -3,6 +3,12 @@
   "name": "Product Name",
   "price": "Price",
   "category": "Category",
-  "image": "Product Image",
-  "description": "Description"
+  "image": "Image",
+  "description": "Description",
+  "is_available": "Available",
+  "status": "Status",
+  "available": "Available",
+  "unavailable": "Unavailable",
+  "select_category": "Select Category",
+  "product_list": "Product List"
 }

@@ -3,7 +3,9 @@
     "ALREADY_EXISTS": "User already exists",
     "INVALID_CREDENTIALS": "Invalid email or password",
     "MISSING_FIELDS": "Email and password are required",
-    "NOT_FOUND": "User not found"
+    "NOT_FOUND": "User not found",
+    "REGISTER_FAILED": "Failed to register user",
+    "LOGIN_FAILED": "Failed to login"
   },
   "AUTH": {
     "NO_TOKEN": "Unauthorized: No token provided",
@@ -11,11 +13,31 @@
     "UNAUTHORIZED": "Unauthorized"
   },
   "PRODUCT": {
-    "NOT_FOUND": "Product not found"
+    "NOT_FOUND": "Product not found",
+    "CREATE_FAILED": "Failed to create product",
+    "FETCH_FAILED": "Failed to fetch products",
+    "UPDATE_FAILED": "Failed to update product",
+    "DELETE_FAILED": "Failed to delete product"
   },
   "ORDER": {
     "INVALID_INPUT": "Invalid input. Items (array) are required.",
-    "PRODUCT_NOT_FOUND": "Product with ID {id} not found"
+    "PRODUCT_NOT_FOUND": "Product with ID {id} not found",
+    "CREATE_FAILED": "Failed to create order"
+  },
+  "STATS": {
+    "FETCH_FAILED": "Failed to fetch stats"
+  },
+  "UPLOAD": {
+    "NO_FILE": "No file uploaded",
+    "FAILED": "Upload failed"
+  },
+  "CATEGORY": {
+    "NOT_FOUND": "Category not found",
+    "NAME_REQUIRED": "Name is required",
+    "CREATE_FAILED": "Failed to create category",
+    "UPDATE_FAILED": "Failed to update category",
+    "DELETE_FAILED": "Failed to delete category",
+    "FETCH_FAILED": "Failed to fetch categories"
   },
   "Common": {
     "UNKNOWN_ERROR": "Unknown error"
