@@ -4,7 +4,10 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import PosPage from './pages/PosPage';
 import KitchenPage from './pages/KitchenPage';
-import AdminProduct from './pages/AdminProduct';
+import ProductListPage from './pages/ProductListPage';
+import ProductFormPage from './pages/ProductFormPage';
+import CategoryListPage from './pages/CategoryListPage';
+import CategoryFormPage from './pages/CategoryFormPage';
 import DashboardPage from './pages/DashboardPage';
 import PrivateRoute from './layouts/PrivateRoute';
 import MainLayout from './layouts/MainLayout';
@@ -17,7 +20,14 @@ function App() {
         <Route element={<PrivateRoute />}>
           <Route element={<MainLayout />}>
             <Route path="/" element={<HomePage />} />
-            <Route path="/admin/products" element={<AdminProduct />} />
+            <Route path="/admin/products" element={<ProductListPage />} />
+            <Route path="/admin/products/new" element={<ProductFormPage />} />
+            <Route path="/admin/products/:id/edit" element={<ProductFormPage />} />
+            
+            <Route path="/admin/categories" element={<CategoryListPage />} />
+            <Route path="/admin/categories/new" element={<CategoryFormPage />} />
+            <Route path="/admin/categories/:id/edit" element={<CategoryFormPage />} />
+
             <Route path="/admin/dashboard" element={<DashboardPage />} />
             <Route path="/pos" element={<PosPage />} />
             <Route path="/kitchen" element={<KitchenPage />} />

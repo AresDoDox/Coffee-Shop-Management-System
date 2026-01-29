@@ -17,7 +17,10 @@ export class OrderController {
       // Basic Validation
       // Note: userId is guaranteed by middleware if using strict typing, but good to check.
       if (!userId || !items || !Array.isArray(items) || items.length === 0) {
-        res.status(400).json({ error: errors.ORDER.INVALID_INPUT });
+        res.status(400).json({
+          code: 'INVALID_INPUT',
+          message: errors.ORDER.INVALID_INPUT
+        });
         return;
       }
 
@@ -27,7 +30,10 @@ export class OrderController {
       const message = error instanceof Error ? error.message : errors.Common.UNKNOWN_ERROR;
       // Basic approach: If Prisma fails (e.g., Foreign Key constraint), it throws an error.
       // In a real app, we would parse the Prisma error code (e.g., P2003) for a better message.
-      res.status(400).json({ error: message });
+      res.status(400).json({
+        code: 'CREATE_FAILED',
+        message: message === errors.Common.UNKNOWN_ERROR ? errors.ORDER.CREATE_FAILED : message
+      });
     }
   }
 }

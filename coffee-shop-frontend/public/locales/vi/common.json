@@ -5,7 +5,8 @@
     "dashboard": "Tổng quan",
     "pos": "Bán hàng",
     "kitchen": "Bếp",
-    "products": "Sản phẩm"
+    "products": "Sản phẩm",
+    "categories": "Danh mục"
   },
   "logout": "Đăng xuất",
   "role": {
@@ -15,5 +16,14 @@
   "loading": "Đang tải...",
   "submit": "Xác nhận",
   "success": "Thành công",
-  "error_occurred": "Đã xảy ra lỗi"
+  "error_occurred": "Đã xảy ra lỗi",
+  "edit": "Chỉnh sửa",
+  "delete": "Xóa",
+  "add_new": "Thêm mới",
+  "actions": "Hành động",
+  "id": "ID",
+  "confirm_delete": "Bạn có chắc chắn muốn xóa mục này không?",
+  "no_data": "Không có dữ liệu",
+  "name": "Tên",
+  "all_categories": "Tất cả danh mục"
 }

@@ -39,6 +39,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar, isMobile, onCl
     { path: '/pos', icon: <ShoppingBag size={20} />, label: t('menu.pos') },
     { path: '/kitchen', icon: <ChefHat size={20} />, label: t('menu.kitchen') },
     { path: '/admin/products', icon: <Package size={20} />, label: t('menu.products') },
+    { path: '/admin/categories', icon: <Package size={20} />, label: t('menu.categories') },
   ];
 
   const sidebarClasses = `
