@@ -14,13 +14,15 @@ model category {
 }
 
 model order {
-  id          Int          @id @default(autoincrement())
-  createdAt   DateTime     @default(now())
-  totalAmount Decimal      @db.Decimal(10, 2)
-  status      order_status @default(PENDING)
-  userId      Int
-  user        user         @relation(fields: [userId], references: [id], map: "Order_userId_fkey")
-  orderitem   orderitem[]
+  id            Int          @id @default(autoincrement())
+  createdAt     DateTime     @default(now())
+  totalAmount   Decimal      @db.Decimal(10, 2)
+  status        order_status @default(PENDING)
+  paymentStatus String       @default("UNPAID")
+  paymentMethod String       @default("QR")
+  userId        Int
+  user          user         @relation(fields: [userId], references: [id], map: "Order_userId_fkey")
+  orderitem     orderitem[]
 
   @@index([userId], map: "Order_userId_fkey")
 }
