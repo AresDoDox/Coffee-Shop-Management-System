@@ -23,6 +23,7 @@ import userRoutes from './routes/user.routes.js';
 import categoryRoutes from './routes/category.routes.js';
 import uploadRoutes from './routes/upload.routes.js';
 import statsRoutes from './routes/stats.routes.js';
+import paymentRoutes from './routes/payment.routes.js';
 
 const apiVersion = process.env.API_VERSION || 'v1';
 
@@ -32,6 +33,7 @@ app.use(`/api/${apiVersion}/users`, userRoutes);
 app.use(`/api/${apiVersion}/categories`, categoryRoutes);
 app.use(`/api/${apiVersion}/upload`, uploadRoutes);
 app.use(`/api/${apiVersion}/stats`, statsRoutes);
+app.use(`/api/${apiVersion}/payment`, paymentRoutes);
 
 app.get('/', (req, res) => {
   res.json({ message: 'Coffee Shop Backend is running!' });

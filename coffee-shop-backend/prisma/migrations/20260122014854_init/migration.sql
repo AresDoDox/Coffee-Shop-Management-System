@@ -1,0 +1,5 @@
+ALTER TABLE `order`
+ADD paymentMethod ENUM('QR', 'CASH') NOT NULL DEFAULT 'QR';
+
+ALTER TABLE `order`
+ADD paymentStatus ENUM('UNPAID', 'PAID') NOT NULL DEFAULT 'UNPAID';
