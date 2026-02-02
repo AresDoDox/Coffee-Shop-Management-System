@@ -1,0 +1,10 @@
+{
+  "scan_to_pay": "Scan to Pay",
+  "order_id": "Order ID",
+  "waiting_confirmation": "Waiting for payment confirmation...",
+  "payment_success": "Payment Successful!",
+  "redirecting": "Redirecting to POS...",
+  "cancel": "Cancel",
+  "loading_qr": "Loading QR...",
+  "error_loading": "Error loading payment info"
+}

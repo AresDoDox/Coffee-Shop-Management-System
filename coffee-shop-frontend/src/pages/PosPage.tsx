@@ -6,9 +6,11 @@ import type { CartItem } from '../components/pos/Cart';
 import type { Product } from '../services/product.service';
 import { createOrder } from '../services/order.service';
 import LanguageSwitcher from '../components/LanguageSwitcher';
+import { useNavigate } from 'react-router-dom';
 
 const PosPage: React.FC = () => {
   const { t } = useTranslation(['pos', 'common', 'errors']);
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<'products' | 'cart'>('products');
   const [cart, setCart] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState(false);
@@ -56,10 +58,10 @@ const PosPage: React.FC = () => {
         totalAmount: cart.reduce((sum, item) => sum + item.price * item.quantity, 0),
       };
 
-      await createOrder(orderData);
+      const newOrder = await createOrder(orderData);
       setCart([]);
-      alert(t('messages.order_success'));
-      setActiveTab('products'); // Return to products after checkout
+      setActiveTab('products'); 
+      navigate(`/payment/${newOrder.id}`);
     } catch (error) {
       console.error('Checkout failed', error);
       alert(t('messages.checkout_failed'));

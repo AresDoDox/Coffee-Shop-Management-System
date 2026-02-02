@@ -26,20 +26,21 @@ const CategoryFormPage: React.FC = () => {
 
   // Fetch category if in edit mode (using getAll for simplicity since we don't have getById yet, or we can filter)
   // Actually, let's just fetch all and find (or implement getById in service if strictly needed, but filtering is fine for small lists)
-  const { data: categories } = useQuery({
+  // Fetch category
+  const { data: categoriesResponse } = useQuery({
     queryKey: ['categories'],
-    queryFn: getCategories,
+    queryFn: () => getCategories({ limit: 100 }), // Get all for finding
     enabled: isEditMode,
   });
 
   useEffect(() => {
-    if (isEditMode && categories) {
-      const category = categories.find((c) => c.id === Number(id));
+    if (isEditMode && categoriesResponse?.data) {
+      const category = categoriesResponse.data.find((c) => c.id === Number(id));
       if (category) {
         setValue('name', category.name);
       }
     }
-  }, [isEditMode, categories, id, setValue]);
+  }, [isEditMode, categoriesResponse, id, setValue]);
 
   const mutation = useMutation({
     mutationFn: async (data: CategoryForm) => {

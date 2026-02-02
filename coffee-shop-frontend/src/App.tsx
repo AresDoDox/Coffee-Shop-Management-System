@@ -9,6 +9,7 @@ import ProductFormPage from './pages/ProductFormPage';
 import CategoryListPage from './pages/CategoryListPage';
 import CategoryFormPage from './pages/CategoryFormPage';
 import DashboardPage from './pages/DashboardPage';
+import PaymentPage from './pages/PaymentPage';
 import PrivateRoute from './layouts/PrivateRoute';
 import MainLayout from './layouts/MainLayout';
 
@@ -30,6 +31,7 @@ function App() {
 
             <Route path="/admin/dashboard" element={<DashboardPage />} />
             <Route path="/pos" element={<PosPage />} />
+            <Route path="/payment/:id" element={<PaymentPage />} />
             <Route path="/kitchen" element={<KitchenPage />} />
           </Route>
         </Route>
