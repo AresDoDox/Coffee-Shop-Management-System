@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { socket } from '../services/socket';
 import { useTranslation } from 'react-i18next';
-import { updateOrderStatus } from '../services/order.service';
+import { updateOrderStatus, getActiveOrders } from '../services/order.service';
 
 // Reuse types or define specific ones for Kitchen
 interface OrderItem {
   productId: number;
   quantity: number;
   price: number;
+  product?: { name: string }; // Optional product details
 }
 interface KitchenOrder {
   id: number;
   status: string;
   totalAmount: number;
   createdAt: string;
-  items?: OrderItem[]; // Depending on what backend sends
+  orderitem?: OrderItem[]; // Prisma uses lowercase relation name by default or strict camelCase? Check backend return.
+  // Backend returns "orderitem" array based on include
+  items?: OrderItem[]; // Frontend might map this
 }
 
 const KitchenPage: React.FC = () => {
@@ -23,6 +26,19 @@ const KitchenPage: React.FC = () => {
   const [isConnected, setIsConnected] = useState(socket.connected);
 
   useEffect(() => {
+    const fetchOrders = async () => {
+        try {
+            const data = await getActiveOrders();
+            // Map backend "orderitem" to "items" if necessary, or just use data directly
+            // Backend returns array of orders with "orderitem"
+            setOrders(data); 
+        } catch (error) {
+            console.error("Failed to fetch active orders", error);
+        }
+    };
+
+    fetchOrders();
+
     function onConnect() {
       setIsConnected(true);
       socket.emit('join_kitchen');

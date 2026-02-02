@@ -9,9 +9,25 @@ interface OrderItemInput {
 
 export class OrderService {
 
-  async getRecentOrders() {
+    async getRecentOrders() {
+        return prisma.order.findMany({
+            take: 50,
+            orderBy: { createdAt: 'desc' },
+            include: {
+                orderitem: {
+                    include: { product: true }
+                }
+            }
+        });
+    }
+
+  async getActiveOrders() {
       return prisma.order.findMany({
-          take: 50,
+          where: {
+              status: {
+                  in: [order_status.PENDING] // Add PROCESSING if valid
+              }
+          },
           orderBy: { createdAt: 'desc' },
           include: {
               orderitem: {

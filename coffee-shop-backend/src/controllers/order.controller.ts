@@ -7,6 +7,17 @@ const orderService = new OrderService();
 
 export class OrderController {
   
+  // GET /orders/active
+  async listActive(req: Request, res: Response) {
+      try {
+          const orders = await orderService.getActiveOrders();
+          res.json(orders);
+      } catch (error) {
+          const message = error instanceof Error ? error.message : 'Unknown error';
+          res.status(500).json({ message });
+      }
+  }
+
   // GET /orders
   async list(req: Request, res: Response) {
       try {
