@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tanstack/react-query';
 import { getCategories, deleteCategory } from '../services/category.service';
 import type { Category } from '../services/category.service';
 import { Link } from 'react-router-dom';
@@ -23,7 +23,7 @@ const CategoryListPage: React.FC = () => {
   } = useQuery({
     queryKey: ['categories', page, debouncedSearch],
     queryFn: () => getCategories({ page, limit, search: debouncedSearch }),
-    placeholderData: (previousData) => previousData, // Keep previous data while fetching new
+    placeholderData: keepPreviousData,
   });
 
   const categories = data?.data;

@@ -10,7 +10,7 @@ i18n
   .init({
     fallbackLng: 'en',
     debug: true,
-    ns: ['common', 'auth', 'home', 'validation', 'errors', 'pos', 'kitchen', 'dashboard'],
+    ns: ['common', 'auth', 'home', 'validation', 'errors', 'pos', 'kitchen', 'dashboard', 'payment'],
     defaultNS: 'common',
     interpolation: {
       escapeValue: false,

@@ -39,10 +39,12 @@ const ProductFormPage: React.FC = () => {
   });
 
   // Fetch categories
-  const { data: categories } = useQuery({
+  const { data: categoriesResponse } = useQuery({
     queryKey: ['categories'],
-    queryFn: getCategories,
+    queryFn: () => getCategories({ limit: 100 }),
   });
+  
+  const categories = categoriesResponse?.data || [];
 
   // Populate form when data is fetched
   useEffect(() => {
