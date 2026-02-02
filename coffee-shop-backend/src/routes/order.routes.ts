@@ -6,6 +6,7 @@ const router = Router();
 const orderController = new OrderController();
 
 // Protect this route
+router.get('/active', authenticateToken, orderController.listActive.bind(orderController));
 router.get('/', authenticateToken, orderController.list.bind(orderController));
 router.post('/', authenticateToken, orderController.create.bind(orderController));
 router.patch('/:id/status', authenticateToken, orderController.updateStatus.bind(orderController));

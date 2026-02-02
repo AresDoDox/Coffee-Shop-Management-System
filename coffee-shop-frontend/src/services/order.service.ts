@@ -32,3 +32,9 @@ export const updatePaymentStatus = async (id: number, paymentMethod: string, pay
     const response = await api.patch(`/orders/${id}/payment`, { paymentMethod, paymentStatus });
     return response.data;
 }
+
+export const getActiveOrders = async () => {
+    const response = await api.get('/orders/active');
+    // Ensure we handle potential data format issues if backend wraps it
+    return response.data;
+}
