@@ -14,6 +14,26 @@
   },
   "messages": {
     "order_success": "Đặt hàng thành công!",
-    "checkout_failed": "Thanh toán thất bại"
+    "checkout_failed": "Thanh toán thất bại",
+    "select_payment_method": "Chọn phương thức thanh toán",
+    "cash": "Tiền mặt",
+    "transfer": "Chuyển khoản (QR)",
+    "cancel": "Hủy",
+    "confirm_cancel": "Bạn có chắc chắn muốn hủy đơn hàng này không?",
+    "cancel_success": "Đã hủy đơn hàng",
+    "payment_updated": "Đã cập nhật thanh toán thành Tiền mặt",
+    "error_cancel": "Hủy đơn hàng thất bại",
+    "error_payment": "Cập nhật thanh toán thất bại"
+  },
+  "recent_orders": {
+    "title": "Đơn hàng gần đây",
+    "close": "Đóng",
+    "loading": "Đang tải...",
+    "id": "Mã đơn",
+    "total": "Tổng tiền",
+    "status": "Trạng thái",
+    "payment": "Thanh toán",
+    "actions": "Thao tác",
+    "pay_cash": "TT Tiền mặt"
   }
 }

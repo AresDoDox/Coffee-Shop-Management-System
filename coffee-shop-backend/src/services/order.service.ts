@@ -8,9 +8,21 @@ interface OrderItemInput {
 }
 
 export class OrderService {
+
+  async getRecentOrders() {
+      return prisma.order.findMany({
+          take: 50,
+          orderBy: { createdAt: 'desc' },
+          include: {
+              orderitem: {
+                  include: { product: true }
+              }
+          }
+      });
+  }
   
   // Create Order with Transaction (Nested Writes)
-  async createOrder(userId: number, items: OrderItemInput[]) {
+  async createOrder(userId: number, items: OrderItemInput[], paymentMethod: string = 'QR') {
     // 1. Lấy thông tin sản phẩm từ Database để biết giá hiện tại
     // (Không tin giá từ Frontend gửi lên!)
     const productIds = items.map((item) => item.productId);
@@ -48,6 +60,8 @@ export class OrderService {
         userId: userId,
         totalAmount: totalAmount,
         status: order_status.PENDING,
+        paymentMethod: paymentMethod,
+        paymentStatus: paymentMethod === 'CASH' ? 'PAID' : 'UNPAID',
         orderitem: {
           create: orderItemsData
         }
@@ -71,5 +85,50 @@ export class OrderService {
     }
 
     return newOrder;
+  }
+
+  async updateStatus(orderId: number, status: order_status) {
+    const order = await prisma.order.update({
+      where: { id: orderId },
+      data: { status },
+    });
+
+    // Notify rooms
+    const io = getIO();
+    
+    // Notify Kitchen (update UI)
+    io.to('kitchen_room').emit('order_updated', order);
+    
+    // Notify POS (if completed)
+    if (status === order_status.COMPLETED) {
+        io.to('pos_room').emit('order_ready', order);
+    }
+
+    return order;
+  }
+
+  async cancelOrder(orderId: number) {
+    // Check if order exists and is not already completed
+    const existingOrder = await prisma.order.findUnique({ where: { id: orderId } });
+    if (!existingOrder) throw new Error('Order not found');
+    if (existingOrder.status === order_status.COMPLETED) throw new Error('Cannot cancel completed order');
+
+    const order = await prisma.order.update({
+        where: { id: orderId },
+        data: { status: order_status.CANCELLED }
+    });
+
+    const io = getIO();
+    io.to('kitchen_room').emit('order_updated', order);
+    return order;
+  }
+
+  async updatePaymentStatus(orderId: number, paymentMethod: string, paymentStatus: string) {
+      const order = await prisma.order.update({
+          where: { id: orderId },
+          data: { paymentMethod, paymentStatus }
+      });
+      // Optionally notify if needed, but for now just DB update
+      return order;
   }
 }
