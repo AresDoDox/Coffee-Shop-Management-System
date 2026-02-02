@@ -14,6 +14,26 @@
   },
   "messages": {
     "order_success": "Order placed successfully!",
-    "checkout_failed": "Checkout failed"
+    "checkout_failed": "Checkout failed",
+    "select_payment_method": "Select Payment Method",
+    "cash": "Cash",
+    "transfer": "Transfer (QR)",
+    "cancel": "Cancel",
+    "confirm_cancel": "Are you sure you want to cancel this order?",
+    "cancel_success": "Order cancelled",
+    "payment_updated": "Payment updated to Cash",
+    "error_cancel": "Failed to cancel order",
+    "error_payment": "Failed to update payment"
+  },
+  "recent_orders": {
+    "title": "Recent Orders",
+    "close": "Close",
+    "loading": "Loading...",
+    "id": "ID",
+    "total": "Total",
+    "status": "Status",
+    "payment": "Payment",
+    "actions": "Actions",
+    "pay_cash": "Pay Cash"
   }
 }

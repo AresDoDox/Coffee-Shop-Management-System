@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { socket } from '../services/socket';
 import { useTranslation } from 'react-i18next';
+import { updateOrderStatus } from '../services/order.service';
 
 // Reuse types or define specific ones for Kitchen
 interface OrderItem {
@@ -35,23 +36,45 @@ const KitchenPage: React.FC = () => {
     function onNewOrder(value: KitchenOrder) {
       console.log('New order received:', value);
       setOrders((previous) => [value, ...previous]);
-      // Optional: Play sound here
-      // alert(t('notification.new_order')); // Optional: restore if needed
+    }
+
+    function onOrderUpdated(updatedOrder: KitchenOrder) {
+       setOrders((prev) => 
+         prev.map(o => o.id === updatedOrder.id ? updatedOrder : o)
+             .filter(o => o.status !== 'COMPLETED' && o.status !== 'CANCELLED') // Remove completed and cancelled orders
+       );
     }
 
     socket.on('connect', onConnect);
     socket.on('disconnect', onDisconnect);
     socket.on('new_order', onNewOrder);
+    socket.on('order_updated', onOrderUpdated);
 
-    socket.connect();
+    if (socket.connected) {
+        onConnect();
+    } else {
+        socket.connect();
+    }
 
     return () => {
       socket.off('connect', onConnect);
       socket.off('disconnect', onDisconnect);
       socket.off('new_order', onNewOrder);
+      socket.off('order_updated', onOrderUpdated);
       socket.disconnect();
     };
   }, []);
+
+  const handleMarkDone = async (id: number) => {
+    try {
+        await updateOrderStatus(id, 'COMPLETED');
+        // Optimistic update
+        setOrders(prev => prev.filter(o => o.id !== id));
+    } catch (error) {
+        console.error("Failed to mark order as done", error);
+        alert(t('error.update_failed'));
+    }
+  }
 
   return (
     <div className="min-h-screen bg-background p-6">
@@ -88,7 +111,10 @@ const KitchenPage: React.FC = () => {
               </div>
             </div>
             <div className="bg-background p-3 text-center">
-              <button className="font-semibold text-primary hover:text-primary/80">
+              <button 
+                onClick={() => handleMarkDone(order.id)}
+                className="font-semibold text-primary hover:text-primary/80"
+              >
                 {t('order.mark_done')}
               </button>
             </div>
