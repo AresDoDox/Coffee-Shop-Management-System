@@ -147,4 +147,17 @@ export class OrderService {
       // Optionally notify if needed, but for now just DB update
       return order;
   }
+
+  async getOrderById(id: number) {
+      return prisma.order.findUnique({
+          where: { id },
+          include: {
+              orderitem: {
+                  include: {
+                      product: true
+                  }
+              }
+          }
+      });
+  }
 }

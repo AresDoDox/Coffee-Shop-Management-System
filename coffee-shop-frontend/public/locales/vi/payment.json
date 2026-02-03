@@ -2,9 +2,25 @@
   "scan_to_pay": "Quét mã để thanh toán",
   "order_id": "Mã đơn hàng",
   "waiting_confirmation": "Đang chờ xác nhận thanh toán...",
-  "payment_success": "Thanh toán thành công!",
-  "redirecting": "Đang chuyển hướng về POS...",
-  "cancel": "Hủy",
+  "cancel": "Hủy bỏ",
   "loading_qr": "Đang tải mã QR...",
-  "error_loading": "Lỗi khi tải thông tin thanh toán"
+  "error_loading": "Có lỗi khi tải thông tin thanh toán",
+  "payment_success": "Thanh toán thành công!",
+  "redirecting": "Đang chuyển hướng...",
+  "print_invoice": "In hóa đơn",
+  "back_to_pos": "Quay lại bán hàng",
+  "invoice": {
+    "title": "HÓA ĐƠN BÁN HÀNG",
+    "address": "123 Phố Cà Phê, Hà Nội",
+    "tel": "ĐT: 0123.456.789",
+    "invoice_no": "Số HĐ",
+    "date": "Ngày",
+    "cashier": "Thu ngân",
+    "item": "Món",
+    "qty": "SL",
+    "price": "Đơn giá",
+    "total": "TỔNG TIỀN",
+    "payment_method": "Thanh toán",
+    "thank_you": "Cảm ơn & Hẹn gặp lại!"
+  }
 }
