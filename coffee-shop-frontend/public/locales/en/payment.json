@@ -2,9 +2,25 @@
   "scan_to_pay": "Scan to Pay",
   "order_id": "Order ID",
   "waiting_confirmation": "Waiting for payment confirmation...",
-  "payment_success": "Payment Successful!",
-  "redirecting": "Redirecting to POS...",
   "cancel": "Cancel",
-  "loading_qr": "Loading QR...",
-  "error_loading": "Error loading payment info"
+  "loading_qr": "Loading QR Code...",
+  "error_loading": "Error loading payment info",
+  "payment_success": "Payment Successful!",
+  "redirecting": "Redirecting...",
+  "print_invoice": "Print Invoice",
+  "back_to_pos": "Back to POS",
+  "invoice": {
+    "title": "SALES INVOICE",
+    "address": "123 Coffee Street, Hanoi",
+    "tel": "Tel: 0123.456.789",
+    "invoice_no": "Invoice #",
+    "date": "Date",
+    "cashier": "Cashier",
+    "item": "Item",
+    "qty": "Qty",
+    "price": "Price",
+    "total": "TOTAL",
+    "payment_method": "Payment",
+    "thank_you": "Thank you & See you again!"
+  }
 }

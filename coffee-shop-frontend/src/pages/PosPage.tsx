@@ -1,24 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { socket } from '../services/socket';
 import ProductList from '../components/pos/ProductList';
 import Cart from '../components/pos/Cart';
 import type { CartItem } from '../components/pos/Cart';
 import type { Product } from '../services/product.service';
-import { createOrder } from '../services/order.service';
+import { createOrder, type Order } from '../services/order.service';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import { useNavigate } from 'react-router-dom';
 import RecentOrdersModal from '../components/pos/RecentOrdersModal';
+import { useReactToPrint } from 'react-to-print';
+import { Invoice } from '../components/Invoice';
 
 const PosPage: React.FC = () => {
-  const { t } = useTranslation(['pos', 'common', 'errors']);
+  const { t } = useTranslation(['pos', 'common', 'errors', 'payment']);
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<'products' | 'cart'>('products');
   const [cart, setCart] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState(false);
   const [showRecentOrders, setShowRecentOrders] = useState(false);
-
   const [showPaymentModal, setShowPaymentModal] = useState(false);
+  
+  // State for invoice printing
+  const [successOrder, setSuccessOrder] = useState<Order | null>(null);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const invoiceRef = useRef<HTMLDivElement>(null);
+
+  const handlePrint = useReactToPrint({
+      contentRef: invoiceRef,
+      documentTitle: `Invoice-${successOrder?.id || 'new'}`,
+  });
 
   const handleAddToCart = (product: Product) => {
     setCart((prevCart) => {
@@ -52,12 +63,6 @@ const PosPage: React.FC = () => {
   // Socket Listener for Kitchen Notifications
   React.useEffect(() => {
     const onOrderReady = (order: { id: number }) => {
-        // Simple notification sound (optional)
-        // const audio = new Audio('/sounds/notification.mp3');
-        // audio.play().catch(e => console.log('Audio play failed', e));
-        
-        // Show notification (Using built-in browser API or custom UI)
-        // For now, let's use a custom UI state or Alert (migrating to Toast later)
         alert(t('common:notification.order_ready', { id: order.id }));
     };
 
@@ -85,15 +90,17 @@ const PosPage: React.FC = () => {
         paymentMethod: method,
       };
 
-      const newOrder = await createOrder(orderData);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const newOrder: any = await createOrder(orderData);
       
       if (method === 'QR') {
         navigate(`/payment/${newOrder.id}`);
       } else {
         setCart([]);
-        alert(t('messages.order_success'));
-        setActiveTab('products');
+        setSuccessOrder(newOrder);
         setShowPaymentModal(false);
+        setShowSuccessModal(true);
+        setActiveTab('products');
       }
     } catch (error) {
       console.error('Checkout failed', error);
@@ -102,6 +109,11 @@ const PosPage: React.FC = () => {
       setLoading(false);
     }
   };
+
+  const handleCloseSuccessModal = () => {
+      setShowSuccessModal(false);
+      setSuccessOrder(null);
+  }
 
   const cartItemCount = cart.reduce((acc, item) => acc + item.quantity, 0);
 
@@ -182,6 +194,44 @@ const PosPage: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* Success Modal */}
+      {showSuccessModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 transition-opacity animate-fade-in">
+              <div className="w-full max-w-sm scale-100 transform rounded-2xl bg-white p-6 shadow-2xl transition-all animate-scale-up text-center">
+                  <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
+                      <svg className="h-10 w-10 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                  </div>
+                  <h2 className="text-xl font-bold text-gray-800 mb-2">{t('payment:payment_success')}</h2>
+                  
+                  <div className="mt-6 flex flex-col gap-3">
+                      <button 
+                          onClick={() => handlePrint()}
+                          className="w-full rounded-lg bg-blue-600 py-3 font-semibold text-white hover:bg-blue-700 flex justify-center items-center gap-2"
+                      >
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                          </svg>
+                          {t('payment:print_invoice')}
+                      </button>
+                      
+                      <button 
+                          onClick={handleCloseSuccessModal}
+                          className="w-full rounded-lg border border-gray-300 py-3 font-semibold text-gray-700 hover:bg-gray-50"
+                      >
+                          {t('payment:back_to_pos')}
+                      </button>
+                  </div>
+              </div>
+          </div>
+      )}
+
+      {/* Hidden Invoice Component */}
+      <div style={{ display: 'none' }}>
+        <Invoice ref={invoiceRef} order={successOrder || undefined} />
+      </div>
 
       {/* Recent Orders Modal */}
       {showRecentOrders && (

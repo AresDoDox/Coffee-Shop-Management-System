@@ -99,4 +99,20 @@ export class OrderController {
           res.status(400).json({ message });
       }
   }
+
+  // GET /orders/:id
+  async getById(req: Request, res: Response) {
+      try {
+          const { id } = req.params;
+          const order = await orderService.getOrderById(Number(id));
+          if (!order) {
+              res.status(404).json({ message: 'Order not found' });
+              return;
+          }
+          res.json(order);
+      } catch (error) {
+          const message = error instanceof Error ? error.message : 'Unknown error';
+          res.status(500).json({ message });
+      }
+  }
 }
