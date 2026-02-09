@@ -1,5 +1,5 @@
 
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { Order } from '../services/order.service';
 
