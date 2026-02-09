@@ -11,8 +11,8 @@ const port = process.env.PORT || 3000;
 
 // Cho phép Frontend (đang chạy ở cổng 5173) được gọi API
 app.use(cors({
-  origin: 'http://localhost:5173', 
-  credentials: true 
+  origin: true,
+  credentials: true
 }));
 
 app.use(express.json());
