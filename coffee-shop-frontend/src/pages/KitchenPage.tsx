@@ -95,7 +95,7 @@ const KitchenPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-background p-6">
       <header className="mb-6 flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-textMain">{t('title')}</h1>
+        <h1 className="text-3xl font-black tracking-tight text-textMain">{t('title')}</h1>
         <div
           className={`rounded-full px-4 py-2 ${isConnected ? 'bg-green-500' : 'bg-red-500'} text-white`}
         >

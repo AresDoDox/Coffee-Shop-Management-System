@@ -68,7 +68,7 @@ const ProductListPage: React.FC = () => {
   return (
     <div className="p-6">
       <div className="flex flex-col sm:flex-row justify-between items-center mb-6 space-y-4 sm:space-y-0">
-        <h1 className="text-2xl font-bold text-textMain">{t('product:product_list')}</h1>
+        <h1 className="text-3xl font-black tracking-tight text-textMain">{t('product:product_list')}</h1>
         <Link
           to="/admin/products/new"
           className="bg-primary text-primary-foreground px-4 py-2 rounded hover:bg-primary/90"

@@ -57,7 +57,7 @@ const CategoryListPage: React.FC = () => {
   return (
     <div className="p-6">
       <div className="mb-6 flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
-        <h1 className="text-textMain text-2xl font-bold">{t('product:category')}</h1>
+        <h1 className="text-3xl font-black tracking-tight text-textMain">{t('product:category')}</h1>
         <Link
           to="/admin/categories/new"
           className="bg-primary text-primary-foreground hover:bg-primary/90 rounded px-4 py-2"
