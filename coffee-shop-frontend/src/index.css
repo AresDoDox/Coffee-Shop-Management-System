@@ -1,12 +1,45 @@
 @import 'tailwindcss';
 
+
 @theme {
-  --color-primary: #4B362F;
+  --color-primary: var(--color-primary);
+  --color-primary-foreground: var(--color-primary-foreground);
+  --color-secondary: var(--color-secondary);
+  --color-background: var(--color-background);
+  --color-surface: var(--color-surface);
+  --color-text-main: var(--color-text-main);
+  --color-textMain: var(--color-text-main);
+  --color-text-muted: var(--color-text-muted);
+  --color-textMuted: var(--color-text-muted);
+  --color-accent: var(--color-accent);
+}
+
+:root {
+  /* Light Mode (Default) - Sleek & Soft */
+  --color-primary: #121212;
   --color-primary-foreground: #FFFFFF;
-  --color-secondary: #F0E5DE;
-  --color-background: #F8F5F2;
+  --color-secondary: #f4f4f5;
+  --color-background: #fafafa;
   --color-surface: #FFFFFF;
-  --color-text-main: #2D2626;
-  --color-text-muted: #9CA3AF;
-  --color-accent: #8B5E3C;
+  --color-text-main: #18181b;
+  --color-text-muted: #71717a;
+  --color-accent: #d97706; /* Amber for coffee vibe */
+}
+
+.dark {
+  /* Dark Mode - Deep Black & Neon Amber */
+  --color-primary: #d97706; /* Amber accent */
+  --color-primary-foreground: #121212;
+  --color-secondary: #27272a;
+  --color-background: #09090b; /* Very dark zinc */
+  --color-surface: #18181b;
+  --color-text-main: #f4f4f5;
+  --color-text-muted: #a1a1aa;
+  --color-accent: #fbbf24;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }

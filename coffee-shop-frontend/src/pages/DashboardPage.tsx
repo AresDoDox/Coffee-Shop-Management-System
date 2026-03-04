@@ -40,17 +40,8 @@ const DashboardPage: React.FC = () => {
     <div className="min-h-screen bg-background p-8">
       <header className="mb-8 flex items-center justify-between">
         <div>
-           <h1 className="text-3xl font-bold text-textMain">{t('dashboard:title')}</h1>
-           <p className="text-gray-500">{t('dashboard:subtitle')}</p>
-        </div>
-        <div className="flex items-center gap-3">
-             <div className="h-10 w-10 overflow-hidden rounded-full bg-white p-1">
-                 <img src="https://ui-avatars.com/api/?name=Admin&background=4B362F&color=fff" alt="Admin" className="h-full w-full rounded-full" />
-             </div>
-             <div>
-                <p className="text-sm font-bold text-textMain">{t('common:role.admin')}</p>
-                <p className="text-xs text-textMuted">{t('common:role.manager')}</p>
-             </div>
+           <h1 className="text-3xl font-black tracking-tight text-textMain">{t('dashboard:title')}</h1>
+           <p className="mt-1 text-sm font-medium text-textMuted">{t('dashboard:subtitle')}</p>
         </div>
       </header>
 

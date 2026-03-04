@@ -1,0 +1,37 @@
+{
+  "hero": {
+    "greeting": "Hello, World! I am a",
+    "role": "Full-Stack",
+    "engineer": "Software Engineer.",
+    "description": "I specialize in building scalable, modern web applications from robust backend architectures to pixel-perfect, interactive frontend experiences. Welcome to my showcase project: ",
+    "project_name": "The Coffee Shop Management System",
+    "explore": "Explore Project"
+  },
+  "skills": {
+    "title": "Core Expertise.",
+    "frontend": "Frontend Matrix",
+    "frontend_desc": "Crafting dynamic, responsive interfaces with a focus on polished aesthetics and fluid animations.",
+    "backend": "Backend Architecture",
+    "backend_desc": "Designing robust REST APIs, real-time sockets, and efficient database schemas.",
+    "devops": "DevOps & Tools",
+    "devops_desc": "Streamlining deployments and maintaining code quality through containerization."
+  },
+  "projects": {
+    "title": "The System in Action.",
+    "subtitle": "Built from scratch, this system handles everything from point-of-sale transactions to kitchen order synchronization.",
+    "feature_1": "Feature 01",
+    "pos_sync": "Real-time POS & Kitchen Sync",
+    "pos_sync_desc": "A lightning-fast Point of Sale interface that communicates instantly with the kitchen display using WebSockets. When an order is placed, chefs know immediately.",
+    "preview_pos": "POS Interface Preview",
+    "feature_2": "Feature 02",
+    "payment": "QR Payment Integration",
+    "payment_desc": "Seamless checkout experience with dynamic QR code generation for Vietnamese banking apps (VietQR), coupled with webhook listeners for automated payment verification.",
+    "preview_payment": "Payment Flow Preview"
+  },
+  "footer": {
+    "ready": "Ready to dive in?",
+    "description": "Experience the full Coffee Shop Management System. Log in as an admin or staff member to see the dashboard, POS, and kitchen screens in action.",
+    "access": "Access the System",
+    "copyright": "© 2026 DevPortfolio. Crafted with precision."
+  }
+}

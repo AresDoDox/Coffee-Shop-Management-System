@@ -6,7 +6,6 @@ import Cart from '../components/pos/Cart';
 import type { CartItem } from '../components/pos/Cart';
 import type { Product } from '../services/product.service';
 import { createOrder, type Order } from '../services/order.service';
-import LanguageSwitcher from '../components/LanguageSwitcher';
 import { useNavigate } from 'react-router-dom';
 import RecentOrdersModal from '../components/pos/RecentOrdersModal';
 import { useReactToPrint } from 'react-to-print';
@@ -119,27 +118,30 @@ const PosPage: React.FC = () => {
 
   return (
     <div className="flex h-screen flex-col bg-background">
-      <header className="flex items-center justify-between bg-surface px-6 py-4 shadow-sm">
-        <h1 className="text-2xl font-bold text-textMain">{t('title')}</h1>
-        <div className="flex items-center gap-4">
-             <button
+      <div className="flex flex-col gap-6 lg:flex-row lg:h-full">
+        {/* Left Layout - Products */}
+        <div className="flex w-full flex-col lg:w-2/3 xl:w-3/4">
+          <div className="mb-6 flex items-center justify-between px-6 py-4">
+            <h1 className="text-3xl font-black text-textMain tracking-tight">{t('title')}</h1>
+            <div className="flex items-center gap-4">
+              <button
                onClick={() => setShowRecentOrders(true)}
                className="rounded-lg bg-secondary px-4 py-2 font-medium text-textMain hover:bg-secondary/80"
-             >
+              >
                {t('recent_orders.title')}
-             </button>
-             <LanguageSwitcher />
-        </div>
-      </header>
+              </button>
+            </div>
+          </div>
 
-      <div className="flex flex-1 overflow-hidden relative">
-        {/* Left Column: Product List */}
-        <div className={`flex-1 overflow-y-auto p-4 ${activeTab === 'cart' ? 'hidden md:block' : ''}`}>
-          <ProductList onAddToCart={handleAddToCart} />
+          <div className="flex flex-1 overflow-hidden relative">
+            <div className={`flex-1 overflow-y-auto p-4 ${activeTab === 'cart' ? 'hidden md:block' : ''}`}>
+              <ProductList onAddToCart={handleAddToCart} />
+            </div>
+          </div>
         </div>
 
         {/* Right Column: Cart */}
-        <div className={`w-full md:w-96 border-l border-secondary bg-surface md:block ${activeTab === 'products' ? 'hidden' : 'block'}`}>
+        <div className={`w-full lg:w-1/3 xl:w-1/4 border-l border-secondary bg-surface md:block ${activeTab === 'products' ? 'hidden' : 'block'}`}>
           <Cart
             items={cart}
             onUpdateQuantity={handleUpdateQuantity}

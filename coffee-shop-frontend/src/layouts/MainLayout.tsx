@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
-import { Menu } from 'lucide-react';
 import Sidebar from '../components/layout/Sidebar';
+import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 
 const MainLayout: React.FC = () => {
@@ -30,7 +30,7 @@ const MainLayout: React.FC = () => {
   const closeMobileSidebar = () => setIsSidebarOpen(false);
 
   return (
-    <div className="flex min-h-screen bg-background text-textMain">
+    <div className="flex min-h-screen bg-background text-textMain selection:bg-accent selection:text-surface">
       {/* Sidebar */}
       <Sidebar
         isOpen={isSidebarOpen}
@@ -41,23 +41,15 @@ const MainLayout: React.FC = () => {
 
       {/* Main Content Area */}
       <div
-        className={`flex flex-1 flex-col transition-all duration-300 ease-in-out ${
+        className={`flex min-h-screen flex-1 flex-col transition-all duration-300 ease-in-out ${
           !isMobile && isSidebarOpen ? 'md:ml-64' : !isMobile ? 'md:ml-20' : 'ml-0'
         }`}
       >
-        {/* Mobile Header (Hamburger) */}
-        {isMobile && (
-          <header className="flex h-16 items-center justify-between bg-surface px-4 shadow-sm">
-            <button onClick={toggleSidebar} className="text-textMain hover:text-primary">
-              <Menu size={24} />
-            </button>
-            <span className="text-lg font-bold text-primary">L-Coffee</span>
-            <div className="w-6" /> {/* Spacer */}
-          </header>
-        )}
+        {/* Global Admin Header */}
+        <Header toggleSidebar={toggleSidebar} isMobile={isMobile} />
 
         {/* Content */}
-        <main className="flex-1">
+        <main className="flex-1 p-6 md:p-8 space-y-8">
           <Outlet />
         </main>
 

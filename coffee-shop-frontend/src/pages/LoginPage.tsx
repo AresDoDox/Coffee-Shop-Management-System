@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAppDispatch, useAppSelector } from '../store/store';
@@ -21,6 +21,8 @@ const LoginPage: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { loading, error, isAuthenticated } = useAppSelector((state) => state.auth);
+  const location = useLocation();
+  const from = location.state?.from?.pathname || '/admin/dashboard';
 
   useEffect(() => {
     dispatch(clearError());
@@ -28,9 +30,9 @@ const LoginPage: React.FC = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate('/');
+      navigate(from, { replace: true });
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, navigate, from]);
 
   const onSubmit = (data: LoginSchema) => {
     dispatch(loginUser(data));

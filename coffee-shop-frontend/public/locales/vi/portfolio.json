@@ -1,0 +1,37 @@
+{
+  "hero": {
+    "greeting": "Xin chào! Tôi là một",
+    "role": "Lập trình viên",
+    "engineer": "Full-Stack.",
+    "description": "Tôi chuyên xây dựng các ứng dụng web tối ưu và hiện đại – từ kiến trúc backend mạnh mẽ đến trải nghiệm frontend mượt mà. Chào mừng bạn đến với dự án tiêu biểu:",
+    "project_name": "Hệ thống Quản lý Coffee Shop",
+    "explore": "Khám phá Dự án"
+  },
+  "skills": {
+    "title": "Chuyên môn Cốt lõi.",
+    "frontend": "Công nghệ Frontend",
+    "frontend_desc": "Thiết kế các giao diện linh hoạt, đáp ứng đa cấu hình với sự chú trọng vào tính thẩm mỹ và hiệu ứng mượt mà.",
+    "backend": "Kiến trúc Backend",
+    "backend_desc": "Xây dựng các REST APIs, đồng bộ dữ liệu thời gian thực và thiết kế cơ sở dữ liệu tối ưu.",
+    "devops": "DevOps & Công cụ",
+    "devops_desc": "Tối ưu hóa quy trình triển khai và duy trì chất lượng mã nguồn thông qua containerization."
+  },
+  "projects": {
+    "title": "Hệ thống thực tế.",
+    "subtitle": "Được xây dựng từ đầu, hệ thống xử lý mượt mà mọi quy trình từ bán hàng (POS) đến đồng bộ đơn bếp.",
+    "feature_1": "Tính năng 01",
+    "pos_sync": "Đồng bộ POS & Bếp Thời Gian Thực",
+    "pos_sync_desc": "Giao diện bán hàng POS cực nhanh kết nối tức thời với màn hình hiển thị trong bếp thông qua WebSockets. Khi có đơn hàng, đầu bếp sẽ nhận được thông báo ngay lập tức.",
+    "preview_pos": "Xem trước POS",
+    "feature_2": "Tính năng 02",
+    "payment": "Tích hợp Thanh toán QR",
+    "payment_desc": "Trải nghiệm thanh toán liền mạch với mã QR động các ngân hàng Việt Nam (VietQR), cùng với webhook tự động xác nhận thanh toán.",
+    "preview_payment": "Xem trước Thanh toán"
+  },
+  "footer": {
+    "ready": "Sẵn sàng trải nghiệm?",
+    "description": "Trải nghiệm đầy đủ Hệ thống Quản lý Coffee Shop. Đăng nhập với tư cách quản trị viên hoặc nhân viên để xem bảng điều khiển, POS và màn hình bếp hoạt động.",
+    "access": "Truy cập Hệ thống",
+    "copyright": "© 2026 DevPortfolio."
+  }
+}

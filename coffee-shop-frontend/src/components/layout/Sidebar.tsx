@@ -13,7 +13,6 @@ import {
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch } from '../../store/store';
 import { logout } from '../../store/slices/auth/auth.actions';
-import LanguageSwitcher from '../LanguageSwitcher';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -43,7 +42,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar, isMobile, onCl
   ];
 
   const sidebarClasses = `
-    fixed inset-y-0 left-0 z-40 flex flex-col bg-surface shadow-lg transition-all duration-300 ease-in-out
+    fixed inset-y-0 left-0 z-40 flex flex-col bg-surface border-r border-secondary/30 shadow-2xl md:shadow-none transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]
     ${isMobile ? (isOpen ? 'translate-x-0 w-64' : '-translate-x-full w-64') : (isOpen ? 'w-64' : 'w-20')}
   `;
 
@@ -52,39 +51,42 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar, isMobile, onCl
       {/* Mobile Overlay */}
       {isMobile && isOpen && (
         <div
-          className="fixed inset-0 z-30 bg-black/50 backdrop-blur-sm"
+          className="fixed inset-0 z-30 bg-black/60 backdrop-blur-sm transition-opacity"
           onClick={onCloseMobile}
         />
       )}
 
       {/* Sidebar Content */}
       <aside className={sidebarClasses}>
+        {!isMobile && (
+          <button
+            onClick={toggleSidebar}
+            className="absolute -right-4 top-14 z-50 flex h-8 w-8 items-center justify-center rounded-full bg-background text-textMuted border border-secondary/50 shadow-sm hover:text-accent hover:border-accent hover:shadow-md transition-all"
+          >
+            {isOpen ? <ChevronLeft size={16} strokeWidth={3} /> : <ChevronRight size={16} strokeWidth={3} />}
+          </button>
+        )}
         {/* Header */}
-        <div className="flex h-16 items-center justify-between border-b border-secondary px-4">
-          <div className="flex items-center gap-2 overflow-hidden">
-            <div className="flex h-8 w-8 min-w-[2rem] items-center justify-center rounded-full bg-primary text-primary-foreground">
-              <Coffee size={18} />
+        <div className="flex h-16 shrink-0 items-center justify-between border-b border-secondary/30 px-4 group">
+          <div className="flex items-center gap-3 overflow-hidden">
+            <div className="flex h-10 w-10 min-w-10 items-center justify-center rounded-xl bg-accent text-surface shadow-lg shadow-accent/20 transition-transform group-hover:scale-105">
+              <Coffee size={22} className="stroke-[2.5]" />
             </div>
             <span
-              className={`text-xl font-bold text-primary transition-opacity duration-200 ${
-                !isMobile && !isOpen ? 'opacity-0 hidden' : 'opacity-100'
+              className={`text-xl font-black tracking-tight text-textMain transition-all duration-300 whitespace-nowrap ${
+                !isMobile && !isOpen ? 'w-0 opacity-0 translate-x-4 hidden' : 'w-auto opacity-100 translate-x-0'
               }`}
             >
-              L-Coffee
+              L-Coffee<span className="text-accent">.</span>
             </span>
           </div>
-          {!isMobile && (
-            <button
-              onClick={toggleSidebar}
-              className="hidden rounded-full bg-background p-1 text-textMuted hover:text-primary md:block"
-            >
-              {isOpen ? <ChevronLeft size={18} /> : <ChevronRight size={18} />}
-            </button>
-          )}
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 space-y-2 overflow-y-auto p-4 scrollbar-thin">
+        <nav className="flex-1 space-y-1.5 overflow-x-hidden overflow-y-auto p-4 scrollbar-thin">
+          <div className={`mb-4 px-3 text-xs font-semibold uppercase tracking-wider text-textMuted transition-opacity whitespace-nowrap ${!isMobile && !isOpen ? 'opacity-0 hidden' : 'opacity-100'}`}>
+            Overview
+          </div>
           {menuItems.map((item) => {
             const isActive = location.pathname === item.path;
             return (
@@ -92,17 +94,17 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar, isMobile, onCl
                 key={item.path}
                 to={item.path}
                 onClick={isMobile ? onCloseMobile : undefined}
-                className={`flex items-center gap-3 rounded-lg px-3 py-2.5 transition-colors ${
+                className={`relative flex items-center gap-3.5 rounded-xl px-3 py-3 font-medium transition-all group overflow-hidden ${
                   isActive
-                    ? 'bg-primary text-primary-foreground'
-                    : 'text-textMuted hover:bg-background hover:text-textMain'
+                    ? 'text-surface bg-accent shadow-md shadow-accent/20'
+                    : 'text-textMuted hover:bg-accent/10 hover:text-textMain hover:dark:text-surface'
                 }`}
                 title={!isOpen && !isMobile ? item.label : ''}
               >
-                <div className="min-w-[1.25rem]">{item.icon}</div>
+                <div className={`min-w-5 transition-transform ${isActive ? 'scale-110' : 'group-hover:scale-110'}`}>{item.icon}</div>
                 <span
-                  className={`overflow-hidden whitespace-nowrap transition-all duration-200 ${
-                    !isMobile && !isOpen ? 'w-0 opacity-0' : 'w-auto opacity-100'
+                  className={`overflow-hidden whitespace-nowrap transition-all duration-300 ${
+                    !isMobile && !isOpen ? 'w-0 opacity-0 -translate-x-2 hidden' : 'w-auto opacity-100 translate-x-0'
                   }`}
                 >
                   {item.label}
@@ -113,30 +115,25 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar, isMobile, onCl
         </nav>
 
         {/* Footer Actions */}
-        <div className="border-t border-secondary p-4">
-          <div className={`flex flex-col gap-4 ${!isMobile && !isOpen ? 'items-center' : ''}`}>
-            {/* Language Switcher - Hide text if collapsed */}
-            <div className={`${!isMobile && !isOpen ? 'scale-75' : ''}`}>
-               <LanguageSwitcher />
-            </div>
-            
-            <button
-              onClick={handleLogout}
-              className={`flex items-center gap-3 rounded-lg px-3 py-2 text-red-500 hover:bg-red-50 ${
-                !isMobile && !isOpen ? 'justify-center' : ''
-              }`}
-              title="Logout"
-            >
+        <div className="border-t border-secondary/30 p-4 shrink-0 transition-all">
+          <button
+            onClick={handleLogout}
+            className={`flex w-full items-center gap-3.5 rounded-xl px-3 py-3 text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 font-medium transition-all group overflow-hidden ${
+              !isMobile && !isOpen ? 'justify-center border border-red-500/20' : ''
+            }`}
+            title="Logout"
+          >
+            <div className="min-w-5 shrink-0 transition-transform group-hover:-translate-x-1">
               <LogOut size={20} />
-              <span
-                className={`overflow-hidden whitespace-nowrap transition-all duration-200 ${
-                  !isMobile && !isOpen ? 'w-0 opacity-0' : 'w-auto opacity-100'
-                }`}
-              >
-                {t('logout')}
-              </span>
-            </button>
-          </div>
+            </div>
+            <span
+              className={`overflow-hidden whitespace-nowrap transition-all duration-300 ${
+                !isMobile && !isOpen ? 'w-0 opacity-0 hidden' : 'w-auto opacity-100'
+              }`}
+            >
+              {t('logout')}
+            </span>
+          </button>
         </div>
       </aside>
     </>
