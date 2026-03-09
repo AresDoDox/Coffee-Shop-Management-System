@@ -316,6 +316,119 @@
 			]
 		},
 		{
+			"name": "Vouchers",
+			"item": [
+				{
+					"name": "Get All Vouchers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/vouchers",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vouchers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Voucher",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"code\": \"WELCOME20\",\r\n    \"discountType\": \"PERCENTAGE\",\r\n    \"discountValue\": 20,\r\n    \"minOrderValue\": 100000,\r\n    \"maxDiscount\": 50000,\r\n    \"startDate\": \"2026-01-01T00:00:00Z\",\r\n    \"endDate\": \"2026-12-31T23:59:59Z\",\r\n    \"usageLimit\": 100\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/vouchers",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vouchers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate Voucher",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"code\": \"WELCOME20\",\r\n    \"orderTotal\": 150000\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/vouchers/validate",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vouchers",
+								"validate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Payment",
 			"item": [
 				{

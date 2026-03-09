@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Request, Response } from 'express';
 import { ProductService } from '../services/product.service.js';
 import errors from '../constants/errors.json' with { type: 'json' };

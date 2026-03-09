@@ -19,6 +19,7 @@ const PosPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [showRecentOrders, setShowRecentOrders] = useState(false);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [activeVoucherCode, setActiveVoucherCode] = useState<string | undefined>();
   
   // State for invoice printing
   const [successOrder, setSuccessOrder] = useState<Order | null>(null);
@@ -71,8 +72,9 @@ const PosPage: React.FC = () => {
     };
   }, [t]);
 
-  const handleCheckoutClick = () => {
+  const handleCheckoutClick = (voucherCode?: string) => {
     if (cart.length === 0) return;
+    setActiveVoucherCode(voucherCode);
     setShowPaymentModal(true);
   };
 
@@ -87,6 +89,7 @@ const PosPage: React.FC = () => {
         })),
         totalAmount: cart.reduce((sum, item) => sum + item.price * item.quantity, 0),
         paymentMethod: method,
+        voucherCode: activeVoucherCode
       };
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

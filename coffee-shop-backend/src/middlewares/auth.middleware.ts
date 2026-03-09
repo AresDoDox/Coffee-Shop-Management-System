@@ -23,3 +23,22 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
     next();
   });
 };
+
+export const authorize = (roles: string[]) => {
+  return (req: Request, res: Response, next: NextFunction) => {
+    // The user should have been populated by `authenticateToken`
+    const user = req.user as any;
+    
+    if (!user) {
+       res.status(401).json({ error: "Unauthorized" });
+       return;
+    }
+
+    if (!roles.includes(user.role)) {
+       res.status(403).json({ error: "Forbidden: You do not have permission to perform this action." });
+       return;
+    }
+    
+    next();
+  };
+};
