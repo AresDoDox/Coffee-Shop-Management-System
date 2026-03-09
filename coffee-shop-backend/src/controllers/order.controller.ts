@@ -34,7 +34,7 @@ export class OrderController {
     try {
       // User ID comes from the token, not the body (Secure)
       const userId = (req.user as any)?.id; 
-      const { items, paymentMethod } = req.body;
+      const { items, paymentMethod, voucherCode } = req.body;
 
       // Basic Validation
       // Note: userId is guaranteed by middleware if using strict typing, but good to check.
@@ -46,7 +46,7 @@ export class OrderController {
         return;
       }
 
-      const order = await orderService.createOrder(userId, items, paymentMethod);
+      const order = await orderService.createOrder(userId, items, paymentMethod, voucherCode);
       res.status(201).json(order);
     } catch (error: unknown) {
       const message = error instanceof Error ? error.message : errors.Common.UNKNOWN_ERROR;

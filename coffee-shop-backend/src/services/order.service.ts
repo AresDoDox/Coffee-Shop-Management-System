@@ -1,6 +1,7 @@
 import prisma from '../prisma.js';
 import { order_status } from '@prisma/client';
 import { getIO } from '../socket.js';
+import { validateVoucher } from './voucher.service.js';
 
 interface OrderItemInput {
   productId: number;
@@ -38,7 +39,7 @@ export class OrderService {
   }
   
   // Create Order with Transaction (Nested Writes)
-  async createOrder(userId: number, items: OrderItemInput[], paymentMethod: string = 'QR') {
+  async createOrder(userId: number, items: OrderItemInput[], paymentMethod: string = 'QR', voucherCode?: string) {
     // 1. Lấy thông tin sản phẩm từ Database để biết giá hiện tại
     // (Không tin giá từ Frontend gửi lên!)
     const productIds = items.map((item) => item.productId);
@@ -69,15 +70,35 @@ export class OrderService {
       };
     });
 
-    // 3. Tạo Order và OrderItem cùng lúc (Transaction)
+    // 3. Xử lý Voucher (nếu có)
+    let finalTotalAmount = totalAmount;
+    let appliedVoucherId = null;
+    let discountApplied = 0;
+
+    if (voucherCode) {
+      try {
+        const { voucher, discountAmount } = await validateVoucher(voucherCode, totalAmount);
+        appliedVoucherId = voucher.id;
+        discountApplied = discountAmount;
+        finalTotalAmount = Math.max(0, totalAmount - discountAmount);
+      } catch (error: unknown) {
+        const errorMsg = error instanceof Error ? error.message : String(error);
+        throw new Error(`Voucher error: ${errorMsg}`);
+      }
+    }
+
+    // 4. Tạo Order và OrderItem cùng lúc (Transaction)
     // Prisma gọi đây là "Nested Write" - Ghi lồng nhau
-    const newOrder = await prisma.order.create({
+    const newOrder = await prisma.$transaction(async (prismaProvider) => {
+      const order = await prismaProvider.order.create({
       data: {
         userId: userId,
-        totalAmount: totalAmount,
+        totalAmount: finalTotalAmount,
         status: order_status.PENDING,
         paymentMethod: paymentMethod,
         paymentStatus: paymentMethod === 'CASH' ? 'PAID' : 'UNPAID',
+        voucherId: appliedVoucherId,
+        discount: discountApplied,
         orderitem: {
           create: orderItemsData
         }
@@ -89,6 +110,16 @@ export class OrderService {
             }
         } // Return the created items for confirmation
       }
+    });
+
+      // Nếu áp dụng voucher thành công, tăng usedCount lên 1
+      if (appliedVoucherId) {
+        await prismaProvider.voucher.update({
+          where: { id: appliedVoucherId },
+          data: { usedCount: { increment: 1 } }
+        });
+      }
+      return order;
     });
 
     // Notify Kitchen

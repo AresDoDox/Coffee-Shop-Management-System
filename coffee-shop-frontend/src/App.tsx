@@ -13,6 +13,7 @@ import PaymentPage from './pages/PaymentPage';
 import PrivateRoute from './layouts/PrivateRoute';
 import MainLayout from './layouts/MainLayout';
 import LandingPortfolioPage from './pages/LandingPortfolioPage';
+import VoucherManagement from './pages/Admin/VoucherManagement';
 
 function App() {
   return (
@@ -34,6 +35,8 @@ function App() {
             <Route path="/admin/categories" element={<CategoryListPage />} />
             <Route path="/admin/categories/new" element={<CategoryFormPage />} />
             <Route path="/admin/categories/:id/edit" element={<CategoryFormPage />} />
+
+            <Route path="/admin/vouchers" element={<VoucherManagement />} />
 
             <Route path="/admin/dashboard" element={<DashboardPage />} />
             <Route path="/pos" element={<PosPage />} />

@@ -21,7 +21,10 @@ model order {
   paymentStatus String       @default("UNPAID")
   paymentMethod String       @default("QR")
   userId        Int
+  voucherId     Int?
+  discount      Decimal      @default(0.00) @db.Decimal(10, 2)
   user          user         @relation(fields: [userId], references: [id], map: "Order_userId_fkey")
+  voucher       voucher?     @relation(fields: [voucherId], references: [id])
   orderitem     orderitem[]
 
   @@index([userId], map: "Order_userId_fkey")
@@ -73,4 +76,25 @@ enum order_status {
 enum user_role {
   ADMIN
   STAFF
+}
+
+model voucher {
+  id            Int            @id @default(autoincrement())
+  code          String         @unique
+  discountType  discount_type  @default(PERCENTAGE)
+  discountValue Decimal        @db.Decimal(10, 2)
+  minOrderValue Decimal        @default(0.00) @db.Decimal(10, 2)
+  maxDiscount   Decimal?       @db.Decimal(10, 2)
+  startDate     DateTime
+  endDate       DateTime
+  usageLimit    Int            @default(100)
+  usedCount     Int            @default(0)
+  isActive      Boolean        @default(true)
+  createdAt     DateTime       @default(now())
+  order         order[]
+}
+
+enum discount_type {
+  PERCENTAGE
+  FIXED
 }

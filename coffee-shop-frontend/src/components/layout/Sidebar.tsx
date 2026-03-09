@@ -9,6 +9,7 @@ import {
   LogOut,
   ChevronLeft,
   ChevronRight,
+  Gift
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch } from '../../store/store';
@@ -39,6 +40,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar, isMobile, onCl
     { path: '/kitchen', icon: <ChefHat size={20} />, label: t('menu.kitchen') },
     { path: '/admin/products', icon: <Package size={20} />, label: t('menu.products') },
     { path: '/admin/categories', icon: <Package size={20} />, label: t('menu.categories') },
+    { path: '/admin/vouchers', icon: <Gift size={20} />, label: 'Vouchers' },
   ];
 
   const sidebarClasses = `
